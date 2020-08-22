@@ -1,0 +1,69 @@
+{
+  "name": "@run-z/exec-z",
+  "version": "1.0.0-dev.0",
+  "description": "Abortable executions",
+  "keywords": [
+    "abortable",
+    "cancelable",
+    "promise"
+  ],
+  "homepage": "https://github.com/run-z/exec-z",
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com:run-z/exec-z.git"
+  },
+  "license": "MIT",
+  "author": "Ruslan Lopatin <ruslan.lopatin@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/run-z/exec-z/issues"
+  },
+  "main": "dist/exec-z.js",
+  "module": "dist/exec-z.mjs",
+  "types": "index.d.ts",
+  "dependencies": {
+    "@proc7ts/a-iterable": "^2.7.0",
+    "@proc7ts/call-thru": "^4.0.0",
+    "@proc7ts/primitives": "^1.1.0"
+  },
+  "devDependencies": {
+    "@proc7ts/eslint-config": "^2.0.4",
+    "@proc7ts/rollup-helpers": "^1.0.0",
+    "@rollup/plugin-commonjs": "^15.0.0",
+    "@rollup/plugin-node-resolve": "^9.0.0",
+    "@types/jest": "^26.0.10",
+    "@types/node": "^12.12.54",
+    "@typescript-eslint/eslint-plugin": "^3.9.1",
+    "@typescript-eslint/parser": "^3.9.1",
+    "codecov": "^3.7.2",
+    "eslint": "^7.7.0",
+    "eslint-plugin-jest": "^23.20.0",
+    "gh-pages": "^3.1.0",
+    "jest": "^26.4.1",
+    "jest-junit": "^11.1.0",
+    "npm-run-all": "^4.1.5",
+    "rollup": "^2.26.5",
+    "rollup-plugin-sourcemaps": "^0.6.2",
+    "rollup-plugin-typescript2": "^0.27.2",
+    "shx": "^0.3.2",
+    "strip-ansi": "^6.0.0",
+    "ts-jest": "^26.2.0",
+    "tslib": "^2.0.1",
+    "typedoc": "^0.18.0",
+    "typedoc-plugin-external-module-name": "^4.0.3",
+    "typescript": "^4.0.2"
+  },
+  "scripts": {
+    "all": "run-p --aggregate-output build:all test",
+    "build": "rollup --config ./rollup.config.js",
+    "build:all": "run-p --aggregate-output rebuild lint",
+    "ci:all": "run-p --aggregate-output build:all ci:test",
+    "ci:test": "jest --ci --runInBand",
+    "clean": "shx rm -rf d.ts dist target",
+    "doc": "typedoc",
+    "doc:gh-pages": "gh-pages --dist target/typedoc --dotfiles",
+    "doc:publish": "run-s doc \"doc:gh-pages {@}\" --",
+    "lint": "eslint . --ext .js,.ts",
+    "rebuild": "run-s clean build",
+    "test": "jest"
+  }
+}
