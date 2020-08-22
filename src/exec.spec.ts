@@ -122,36 +122,36 @@ describe('execZ', () => {
   describe('abort', () => {
 
     let abort: jest.Mock<any, any>;
-    let proc: ZExecution;
+    let exec: ZExecution;
 
     beforeEach(() => {
       abort = jest.fn();
     });
 
     afterEach(async () => {
-      await proc.whenDone().catch(noop);
+      await exec.whenDone().catch(noop);
     });
 
     it('is called immediately at most once', async () => {
-      proc = execZ(() => ({
+      exec = execZ(() => ({
         whenDone() {
           return Promise.resolve();
         },
         abort,
       }));
 
-      proc.abort();
-      proc.abort();
-      proc.abort();
+      exec.abort();
+      exec.abort();
+      exec.abort();
 
-      await proc.whenDone().catch(noop);
+      await exec.whenDone().catch(noop);
 
       expect(abort).toHaveBeenCalledTimes(1);
     });
     it('is called at most once after initialization', async () => {
 
       let done!: () => void;
-      proc = execZ(() => ({
+      exec = execZ(() => ({
         whenDone() {
           return new Promise(resolve => done = resolve);
         },
@@ -162,11 +162,11 @@ describe('execZ', () => {
       await Promise.resolve();
       done();
 
-      proc.abort();
-      proc.abort();
-      proc.abort();
+      exec.abort();
+      exec.abort();
+      exec.abort();
 
-      await proc.whenDone().catch(noop);
+      await exec.whenDone().catch(noop);
 
       expect(abort).toHaveBeenCalledTimes(1);
     });

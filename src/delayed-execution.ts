@@ -6,8 +6,10 @@ import type { ZExecution } from './execution';
 
 /**
  * An abortable execution which start can be delayed.
+ *
+ * @typeparam TResult  Execution result type.
  */
-export interface DelayedZExecution extends ZExecution {
+export interface DelayedZExecution<TResult = void> extends ZExecution<TResult> {
 
   /**
    * Awaits for execution to start.

@@ -11,21 +11,24 @@ import type { ZExecution } from './execution';
  * Execution starter signature.
  *
  * Constructs new execution initializer.
+ *
+ * @typeparam TResult  Execution result type.
  */
-export type ZExecutionStarter =
+export type ZExecutionStarter<TResult = void> =
 /**
  * @returns  Either execution instance, or a promise-like instance resolving to one.
  */
-    (this: void) => ZExecution | PromiseLike<ZExecution>;
+    (this: void) => ZExecution<TResult> | PromiseLike<ZExecution<TResult>>;
 
 /**
  * Starts execution by the given starter.
  *
- * @param starter  Execution process starter function.
+ * @typeparam TResult  Execution result type.
+ * @param starter  Execution starter function.
  *
  * @returns Execution instance delayed until starter completes its work.
  */
-export function execZ(starter: ZExecutionStarter): DelayedZExecution {
+export function execZ<TResult>(starter: ZExecutionStarter<TResult>): DelayedZExecution<TResult> {
 
   let start: () => void;
   let dontStart: (error: any) => void;
@@ -48,7 +51,7 @@ export function execZ(starter: ZExecutionStarter): DelayedZExecution {
     whenStarted = lazyValue(() => Promise.reject(error));
   };
 
-  let initialize: (started: ZExecution) => void;
+  let initialize: (started: ZExecution<TResult>) => void;
   let abort = (): void => {
     abort = noop;
     initialize = init => {
@@ -70,7 +73,7 @@ export function execZ(starter: ZExecutionStarter): DelayedZExecution {
     abort = noop;
   };
 
-  const whenDone: Promise<void> = asyncByRecipe(starter).then(
+  const whenDone: Promise<TResult> = asyncByRecipe(starter).then(
       started => {
         initialize(started);
         return started.whenDone().finally(done);

@@ -4,16 +4,18 @@
  */
 
 /**
- * Arbitrary process execution that can be aborted.
+ * Arbitrary execution that can be aborted.
+ *
+ * @typeparam TResult  Execution result type.
  */
-export interface ZExecution {
+export interface ZExecution<TResult = void> {
 
   /**
    * Awaits for execution to finish.
    *
    * @returns A promise resolved when execution succeed, or rejected when it is failed.
    */
-  whenDone(): Promise<void>;
+  whenDone(): Promise<TResult>;
 
   /**
    * Aborts the execution.

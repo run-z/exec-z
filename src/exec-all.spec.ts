@@ -8,13 +8,13 @@ describe('execZAll', () => {
   let done1: () => void;
   let reject1: (error: any) => void;
   let whenDone1: Promise<void>;
-  let proc1: ZExecution;
+  let exec1: ZExecution;
   let isDone1: boolean;
   let abort1: jest.Mock;
 
   let done2: () => void;
   let whenDone2: Promise<void>;
-  let proc2: ZExecution;
+  let exec2: ZExecution;
   let isDone2: boolean;
   let abort2: jest.Mock;
 
@@ -24,7 +24,7 @@ describe('execZAll', () => {
       reject1 = reject;
     });
     abort1 = jest.fn();
-    proc1 = execZ(() => ({
+    exec1 = execZ(() => ({
       whenDone() {
         return whenDone1;
       },
@@ -35,7 +35,7 @@ describe('execZAll', () => {
       done2 = resolve;
     });
     abort2 = jest.fn();
-    proc2 = execZ(() => ({
+    exec2 = execZ(() => ({
       whenDone() {
         return whenDone2;
       },
@@ -45,17 +45,17 @@ describe('execZAll', () => {
     isDone1 = false;
     isDone2 = false;
 
-    proc1.whenDone().then(() => isDone1 = true, noop);
-    proc2.whenDone().then(() => isDone2 = true, noop);
+    exec1.whenDone().then(() => isDone1 = true, noop);
+    exec2.whenDone().then(() => isDone2 = true, noop);
   });
 
   let all: ZExecution;
 
   beforeEach(() => {
-    all = execZAll([proc1, proc2]);
+    all = execZAll([exec1, exec2]);
   });
 
-  it('succeeds when all processes do', async () => {
+  it('succeeds when all executions do', async () => {
 
     const promise = all.whenDone();
 
@@ -65,7 +65,7 @@ describe('execZAll', () => {
     expect(isDone1).toBe(true);
     expect(isDone2).toBe(true);
   });
-  it('fails when one of the processes fail', async () => {
+  it('fails when one of the executions fail', async () => {
 
     const promise = all.whenDone();
     const error = new Error('test');
@@ -75,7 +75,7 @@ describe('execZAll', () => {
     expect(isDone1).toBe(false);
     expect(isDone2).toBe(false);
   });
-  it('aborts other processes when one of them fail', async () => {
+  it('aborts other executions when one of them fail', async () => {
 
     const promise = all.whenDone();
     const error = new Error('test');
@@ -87,7 +87,7 @@ describe('execZAll', () => {
   });
 
   describe('abort', () => {
-    it('aborts all processes', async () => {
+    it('aborts all executions', async () => {
 
       const promise = all.whenDone();
 

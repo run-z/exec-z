@@ -3,6 +3,11 @@ import { execZNoop } from './exec-noop';
 import { immediateResolution } from './spec';
 
 describe('execZNoop', () => {
+  describe('whenStarted', () => {
+    it('resolves immediately', async () => {
+      expect(await immediateResolution(execZNoop().whenStarted())).toEqual([undefined]);
+    });
+  });
   describe('whenDone', () => {
     it('resolves immediately', async () => {
       expect(await immediateResolution(execZNoop().whenDone())).toEqual([undefined]);

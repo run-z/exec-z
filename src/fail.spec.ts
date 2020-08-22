@@ -1,8 +1,18 @@
-import { noop } from '@proc7ts/primitives';
+import { asis, noop } from '@proc7ts/primitives';
 import { failZ } from './fail';
 import { immediateResolution } from './spec';
 
 describe('failZ', () => {
+  describe('whenStarted', () => {
+    it('resolves immediately', async () => {
+
+      const reason = new Error('test');
+      const exec = failZ(reason);
+
+      expect(await immediateResolution(exec.whenStarted())).toEqual([undefined]);
+      expect(await exec.whenDone().catch(asis)).toBe(reason);
+    });
+  });
   describe('whenDone', () => {
     it('rejects immediately', async () => {
 
@@ -14,12 +24,12 @@ describe('failZ', () => {
   describe('abort', () => {
     it('is noop', async () => {
 
-      const process = failZ('test');
+      const exec = failZ('test');
 
-      expect(process.abort).toBe(noop);
+      expect(exec.abort).toBe(noop);
 
       // Await for promise rejection
-      expect(await immediateResolution(process.whenDone())).toEqual([undefined, 'test']);
+      expect(await immediateResolution(exec.whenDone())).toEqual([undefined, 'test']);
     });
   });
 });

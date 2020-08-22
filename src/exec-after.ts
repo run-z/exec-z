@@ -2,43 +2,45 @@
  * @packageDocumentation
  * @module @run-z/exec-z
  */
-import { noop, valueProvider } from '@proc7ts/primitives';
+import { noop } from '@proc7ts/primitives';
+import { AbortedZExecutionError } from './aborted-execution-error';
 import { execZ, ZExecutionStarter } from './exec';
 import type { ZExecution } from './execution';
 
 /**
  * Performs execution after previous one succeed.
  *
+ * @typeparam TResult  Second execution result type.
  * @param first  Execution to complete first.
  * @param next  Next execution starter function.
  *
  * @returns New execution instance.
  */
-export function execZAfter(
-    first: ZExecution,
-    next: ZExecutionStarter,
-): ZExecution {
+export function execZAfter<TResult>(
+    first: ZExecution<unknown>,
+    next: ZExecutionStarter<TResult>,
+): ZExecution<TResult> {
 
   const whenFirstDone = first.whenDone();
 
   return execZ(() => {
 
     let abort: () => void;
-    let startNext = async (): Promise<void> => {
+    let startNext = async (): Promise<TResult> => {
 
-      const proc = execZ(next);
+      const exec = execZ(next);
 
       abort = () => {
         abort = noop;
-        proc.abort();
+        exec.abort();
       };
 
-      return proc.whenDone();
+      return exec.whenDone();
     };
 
     abort = (): void => {
       abort = noop;
-      startNext = valueProvider(whenFirstDone);
+      startNext = () => whenFirstDone.then(() => Promise.reject(new AbortedZExecutionError()));
       first.abort();
     };
 

@@ -1,4 +1,5 @@
 import { asis } from '@proc7ts/primitives';
+import { AbortedZExecutionError } from './aborted-execution-error';
 import { execZ } from './exec';
 import { execZAfter } from './exec-after';
 import type { ZExecution } from './execution';
@@ -26,7 +27,7 @@ describe('execZAfter', () => {
   let reject2: (error: any) => void;
   let abort2: jest.Mock;
 
-  let proc: ZExecution;
+  let exec: ZExecution;
   let success: boolean;
   let error: any;
 
@@ -38,7 +39,7 @@ describe('execZAfter', () => {
     reject2 = undefined!;
     abort2 = jest.fn();
     second = new Promise<void>(resolveSecond => {
-      proc = execZAfter(
+      exec = execZAfter(
           first,
           () => ({
             whenDone() {
@@ -56,7 +57,7 @@ describe('execZAfter', () => {
           }),
       );
 
-      proc.whenDone().then(() => success = true, e => error = e);
+      exec.whenDone().then(() => success = true, e => error = e);
     }).then(asis);
   });
 
@@ -67,7 +68,7 @@ describe('execZAfter', () => {
       expect(success).toBe(false);
 
       done2();
-      await proc.whenDone();
+      await exec.whenDone();
       expect(success).toBe(true);
     });
     it('fails when first execution failed', async () => {
@@ -76,7 +77,7 @@ describe('execZAfter', () => {
 
       reject1(reason);
 
-      expect(await proc.whenDone().catch(asis)).toBe(reason);
+      expect(await exec.whenDone().catch(asis)).toBe(reason);
       expect(error).toBe(reason);
     });
     it('fails when second execution failed', async () => {
@@ -87,27 +88,27 @@ describe('execZAfter', () => {
       await second;
       reject2(reason);
 
-      expect(await proc.whenDone().catch(asis)).toBe(reason);
+      expect(await exec.whenDone().catch(asis)).toBe(reason);
       expect(error).toBe(reason);
     });
   });
 
   describe('abort', () => {
     it('aborts only first execution before the second constructed', async () => {
-      proc.abort();
+      exec.abort();
       done1();
-      await proc.whenDone();
+      expect(await exec.whenDone().catch(asis)).toBeInstanceOf(AbortedZExecutionError);
 
       expect(abort1).toHaveBeenCalledTimes(1);
       expect(abort2).not.toHaveBeenCalled();
-      expect(success).toBe(true);
+      expect(success).toBe(false);
     });
     it('aborts only second execution after it is started', async () => {
       done1();
       await second;
-      proc.abort();
+      exec.abort();
       done2();
-      await proc.whenDone();
+      await exec.whenDone();
 
       expect(abort1).not.toHaveBeenCalled();
       expect(abort2).toHaveBeenCalledTimes(1);

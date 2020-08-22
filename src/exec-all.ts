@@ -21,14 +21,14 @@ export function execZAll(executions: Iterable<ZExecution>): ZExecution {
 
     const toAbort = new Set<ZExecution>(executions);
     const abort = (): void => {
-      for (const proc of toAbort) {
-        proc.abort();
+      for (const exec of toAbort) {
+        exec.abort();
       }
       toAbort.clear();
     };
-    let fail = (proc: ZExecution): void => {
+    let fail = (exec: ZExecution): void => {
       fail = noop;
-      toAbort.delete(proc);
+      toAbort.delete(exec);
       abort();
     };
 
@@ -36,8 +36,8 @@ export function execZAll(executions: Iterable<ZExecution>): ZExecution {
       whenDone(): Promise<void> {
         return Promise.all(mapIt(
             toAbort,
-            proc => proc.whenDone().catch(error => {
-              fail(proc);
+            exec => exec.whenDone().catch(error => {
+              fail(exec);
               return Promise.reject(error);
             }),
         )).then(noop);

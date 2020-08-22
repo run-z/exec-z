@@ -11,14 +11,15 @@ import type { ZExecution } from './execution';
 /**
  * Constructs execution pool.
  *
+ * @typeparam TResult  Execution result type.
  * @param maxRunning  The maximum number of simultaneously running executions. Zero or negative value means no limit.
  * Equals to the number of CPUs by default.
  *
  * @returns A function accepting execution starter and returning started or pending execution.
  */
-export function poolZExecutions(
+export function poolZExecutions<TResult>(
     maxRunning = os.cpus().length,
-): (this: void, starter: ZExecutionStarter) => ZExecution {
+): (this: void, starter: ZExecutionStarter<TResult>) => ZExecution<TResult> {
   if (maxRunning <= 0) {
     return execZ;
   }
