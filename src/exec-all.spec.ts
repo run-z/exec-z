@@ -5,21 +5,21 @@ import type { ZExecution } from './execution';
 
 describe('execZAll', () => {
 
-  let done1: () => void;
+  let done1: (value: string) => void;
   let reject1: (error: any) => void;
-  let whenDone1: Promise<void>;
-  let exec1: ZExecution;
+  let whenDone1: Promise<string>;
+  let exec1: ZExecution<string>;
   let isDone1: boolean;
   let abort1: jest.Mock;
 
-  let done2: () => void;
-  let whenDone2: Promise<void>;
-  let exec2: ZExecution;
+  let done2: (value: string) => void;
+  let whenDone2: Promise<string>;
+  let exec2: ZExecution<string>;
   let isDone2: boolean;
   let abort2: jest.Mock;
 
   beforeEach(() => {
-    whenDone1 = new Promise<void>((resolve, reject) => {
+    whenDone1 = new Promise((resolve, reject) => {
       done1 = resolve;
       reject1 = reject;
     });
@@ -31,7 +31,7 @@ describe('execZAll', () => {
       abort: abort1,
     }));
 
-    whenDone2 = new Promise<void>(resolve => {
+    whenDone2 = new Promise(resolve => {
       done2 = resolve;
     });
     abort2 = jest.fn();
@@ -49,7 +49,7 @@ describe('execZAll', () => {
     exec2.whenDone().then(() => isDone2 = true, noop);
   });
 
-  let all: ZExecution;
+  let all: ZExecution<[string, string]>;
 
   beforeEach(() => {
     all = execZAll([exec1, exec2]);
@@ -59,9 +59,9 @@ describe('execZAll', () => {
 
     const promise = all.whenDone();
 
-    done1();
-    done2();
-    await promise;
+    done1('1');
+    done2('2');
+    expect(await promise).toEqual(['1', '2']);
     expect(isDone1).toBe(true);
     expect(isDone2).toBe(true);
   });
@@ -92,9 +92,9 @@ describe('execZAll', () => {
       const promise = all.whenDone();
 
       all.abort();
-      done1();
-      done2();
-      await promise;
+      done1('1');
+      done2('2');
+      expect(await promise).toEqual(['1', '2']);
 
       expect(abort1).toHaveBeenCalledTimes(1);
       expect(abort2).toHaveBeenCalledTimes(1);
