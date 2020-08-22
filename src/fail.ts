@@ -4,7 +4,7 @@
  */
 import { noop } from '@proc7ts/primitives';
 import type { DelayedZExecution } from './delayed-execution';
-import { zExecutionDone } from './exec-noop';
+import { zExecutionDone } from './exec-done.impl';
 
 /**
  * Performs failed execution.

@@ -118,7 +118,7 @@ describe('poolZExecutions', () => {
     expect(finished.get(1)).toBe(error);
     expect(finished.get(2)).toBeNull();
   });
-  it('does not start already execution execution', async () => {
+  it('does not start already aborted execution', async () => {
 
     const pool = poolZExecutions();
 
@@ -137,7 +137,7 @@ describe('poolZExecutions', () => {
     expect(aborted.has(2)).toBe(false);
 
     end2();
-    await exec1.whenDone();
+    expect(await exec1.whenDone().catch(asis)).toBeInstanceOf(AbortedZExecutionError);
     await exec2.whenDone();
     expect(finished.has(1)).toBe(false);
     expect(finished.get(2)).toBeNull();

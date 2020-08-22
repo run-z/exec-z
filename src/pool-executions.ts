@@ -3,10 +3,11 @@
  * @module @run-z/exec-z
  */
 import * as os from 'os';
+import { AbortedZExecutionError } from './aborted-execution-error';
 import type { ZExecutionStarter } from './exec';
 import { execZ } from './exec';
-import { execZNoop } from './exec-noop';
 import type { ZExecution } from './execution';
+import { failZ } from './fail';
 
 /**
  * Constructs execution pool.
@@ -56,7 +57,7 @@ export function poolZExecutions<TResult>(
 
     let start = starter;
     let abort = (): void => {
-      start = execZNoop;
+      start = () => failZ<TResult>(new AbortedZExecutionError());
     };
     const whenDone = whenReady().then(async () => {
 
