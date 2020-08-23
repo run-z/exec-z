@@ -3,8 +3,8 @@
  * @module @run-z/exec-z
  */
 import { noop } from '@proc7ts/primitives';
-import type { DelayedZExecution } from './delayed-execution';
 import { zExecutionDone } from './exec-done.impl';
+import type { ZExecution } from './execution';
 
 /**
  * Performs failed execution.
@@ -13,7 +13,7 @@ import { zExecutionDone } from './exec-done.impl';
  *
  * @returns Failed execution instance.
  */
-export function failZ<TResult>(reason: any): DelayedZExecution<TResult> {
+export function failZ<TResult>(reason: any): ZExecution<TResult> {
 
   const rejection = Promise.reject(reason);
 

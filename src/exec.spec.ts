@@ -1,6 +1,5 @@
 import { asis, noop } from '@proc7ts/primitives';
 import { AbortedZExecutionError } from './aborted-execution-error';
-import type { DelayedZExecution } from './delayed-execution';
 import { execZ } from './exec';
 import type { ZExecution } from './execution';
 
@@ -13,22 +12,21 @@ describe('execZ', () => {
         done = resolve;
       });
 
-      const started = new Promise<DelayedZExecution>(resolve => {
+      const started = new Promise<[ZExecution]>(resolve => {
 
-        const exec = execZ(async () => {
+        const exec = execZ<void>(async () => {
           await Promise.resolve();
-          resolve(exec);
+          resolve([exec]);
           return ({
             whenDone() {
               return whenDone;
             },
-            abort: noop,
           });
         });
 
       });
 
-      const exec = await started;
+      const [exec] = await started;
 
       expect(await exec.whenStarted()).toBeUndefined();
 
@@ -42,22 +40,21 @@ describe('execZ', () => {
         done = resolve;
       });
 
-      const started = new Promise<DelayedZExecution>(resolve => {
+      const started = new Promise<[ZExecution]>(resolve => {
 
-        const exec = execZ(async () => {
+        const exec = execZ<void>(async () => {
           await Promise.resolve();
-          resolve(exec);
+          resolve([exec]);
           return ({
             whenDone() {
               return whenDone;
             },
-            abort: noop,
           });
         });
 
       });
 
-      const exec = await started;
+      const [exec] = await started;
 
       done();
       await exec.whenDone();
@@ -93,7 +90,6 @@ describe('execZ', () => {
           whenDone() {
             return Promise.resolve();
           },
-          abort: noop,
         };
       });
 
@@ -110,7 +106,6 @@ describe('execZ', () => {
           whenDone() {
             return Promise.resolve();
           },
-          abort: noop,
         };
       });
 
@@ -148,7 +143,7 @@ describe('execZ', () => {
 
       expect(abort).toHaveBeenCalledTimes(1);
     });
-    it('is called at most once after initialization', async () => {
+    it('is called at most once when started', async () => {
 
       let done!: () => void;
       exec = execZ(() => ({
@@ -158,8 +153,7 @@ describe('execZ', () => {
         abort,
       }));
 
-      await Promise.resolve();
-      await Promise.resolve();
+      await exec.whenStarted();
       done();
 
       exec.abort();
@@ -169,6 +163,24 @@ describe('execZ', () => {
       await exec.whenDone().catch(noop);
 
       expect(abort).toHaveBeenCalledTimes(1);
+    });
+    it('is not aborted when started without abort method', async () => {
+
+      let done!: () => void;
+      exec = execZ(() => ({
+        whenDone() {
+          return new Promise(resolve => done = resolve);
+        },
+      }));
+
+      await exec.whenStarted();
+      done();
+
+      exec.abort();
+      exec.abort();
+      exec.abort();
+
+      expect(await exec.whenDone().catch(asis)).toBeUndefined();
     });
   });
 });

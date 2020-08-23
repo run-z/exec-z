@@ -14,7 +14,7 @@ import type { ZExecution } from './execution';
  * @param first  Execution to complete first.
  * @param next  Next execution starter function.
  *
- * @returns New execution instance.
+ * @returns New execution instance started when the first one completes.
  */
 export function execZAfter<TResult>(
     first: ZExecution<unknown>,
@@ -45,6 +45,9 @@ export function execZAfter<TResult>(
     };
 
     return {
+      whenStarted() {
+        return whenFirstDone;
+      },
       whenDone() {
         return whenFirstDone.then(() => startNext());
       },

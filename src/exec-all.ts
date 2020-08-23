@@ -205,7 +205,13 @@ export function execZAll<TResult>(executions: Iterable<ZExecution<TResult>>): ZE
     };
 
     return {
-      whenDone(): Promise<TResult[]> {
+      whenStarted() {
+        return Promise.all(mapIt(
+            toAbort,
+            exec => exec.whenStarted(),
+        ));
+      },
+      whenDone() {
         return Promise.all(mapIt(
             toAbort,
             exec => exec.whenDone().catch(error => {

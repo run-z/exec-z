@@ -4,7 +4,6 @@
  */
 import { asyncByRecipe, lazyValue, noop, valueProvider } from '@proc7ts/primitives';
 import { AbortedZExecutionError } from './aborted-execution-error';
-import type { DelayedZExecution } from './delayed-execution';
 import type { ZExecution } from './execution';
 
 /**
@@ -16,9 +15,44 @@ import type { ZExecution } from './execution';
  */
 export type ZExecutionStarter<TResult = void> =
 /**
- * @returns  Either execution instance, or a promise-like instance resolving to one.
+ * @returns  Either execution initializer, or a promise-like instance resolving to one.
  */
-    (this: void) => ZExecution<TResult> | PromiseLike<ZExecution<TResult>>;
+    (this: void) => ZExecutionInit<TResult> | PromiseLike<ZExecutionInit<TResult>>;
+
+/**
+ * Execution initializer.
+ *
+ * Returned from {@link ZExecutionStarter execution starter} to construct new executions.
+ *
+ * @typeparam TResult  Execution result type.
+ */
+export interface ZExecutionInit<TResult> {
+
+  /**
+   * Constructs a promise resolved when execution starts.
+   *
+   * When omitted the execution is started when starter finishes its work.
+   *
+   * @returns Either none, or a promise-like instance resolved when execution started, or rejected when it is aborted
+   * before being started.
+   */
+  whenStarted?(): void | PromiseLike<unknown>;
+
+  /**
+   * Constructs a promise that resolves to execution result.
+   *
+   * @returns Either execution result, or a promise-like instance resolved to the one.
+   */
+  whenDone(): TResult | PromiseLike<TResult>;
+
+  /**
+   * Aborts the execution.
+   *
+   * When omitted the execution won't be aborted
+   */
+  abort?(): void;
+
+}
 
 /**
  * Starts execution by the given starter.
@@ -26,9 +60,11 @@ export type ZExecutionStarter<TResult = void> =
  * @typeparam TResult  Execution result type.
  * @param starter  Execution starter function.
  *
- * @returns Execution instance delayed until starter completes its work.
+ * @returns New execution instance to start by the given starter.
  */
-export function execZ<TResult>(starter: ZExecutionStarter<TResult>): DelayedZExecution<TResult> {
+export function execZ<TResult>(
+    starter: ZExecutionStarter<TResult>,
+): ZExecution<TResult> {
 
   let start: () => void;
   let dontStart: (error: any) => void;
@@ -51,22 +87,22 @@ export function execZ<TResult>(starter: ZExecutionStarter<TResult>): DelayedZExe
     whenStarted = lazyValue(() => Promise.reject(error));
   };
 
-  let initialize: (started: ZExecution<TResult>) => void;
+  let initialize: (init: ZExecutionInit<TResult>) => void;
   let abort = (): void => {
     abort = noop;
     initialize = init => {
-      init.abort();
+      init.abort?.();
     };
     dontStart(new AbortedZExecutionError());
   };
 
-  initialize = started => {
+  initialize = init => {
     initialize = noop;
     abort = () => {
       abort = noop;
-      started.abort();
+      init.abort?.();
     };
-    start();
+    Promise.resolve(init.whenStarted?.()).then(start, dontStart);
   };
 
   const done = (): void => {
@@ -74,9 +110,9 @@ export function execZ<TResult>(starter: ZExecutionStarter<TResult>): DelayedZExe
   };
 
   const whenDone: Promise<TResult> = asyncByRecipe(starter).then(
-      started => {
-        initialize(started);
-        return started.whenDone().finally(done);
+      init => {
+        initialize(init);
+        return Promise.resolve(init.whenDone()).finally(done);
       },
   ).catch(
       error => {

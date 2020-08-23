@@ -3,13 +3,13 @@
  * @module @run-z/exec-z
  */
 import { noop } from '@proc7ts/primitives';
-import type { DelayedZExecution } from './delayed-execution';
 import { zExecutionDone } from './exec-done.impl';
+import type { ZExecution } from './execution';
 
 /**
  * @internal
  */
-const noopZExecution: DelayedZExecution = {
+const noopZExecution: ZExecution = {
   abort: noop,
   whenStarted() {
     return zExecutionDone;
@@ -26,6 +26,6 @@ const noopZExecution: DelayedZExecution = {
  *
  * @returns Already completed execution instance.
  */
-export function execZNoOp(): DelayedZExecution {
+export function execZNoOp(): ZExecution {
   return noopZExecution;
 }

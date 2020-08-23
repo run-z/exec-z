@@ -53,28 +53,32 @@ export function poolZExecutions<TResult>(
     }
   };
 
-  return starter => {
+  return starter => execZ(() => {
 
     let start = starter;
     let abort = (): void => {
       start = () => failZ<TResult>(new AbortedZExecutionError());
     };
-    const whenDone = whenReady().then(async () => {
 
-      const execution = execZ(start);
-
-      abort = () => execution.abort();
-
-      return execution.whenDone();
-    }).finally(execEnd);
+    const whenStarted = whenReady();
 
     return {
+      whenStarted() {
+        return whenStarted;
+      },
       whenDone() {
-        return whenDone;
+        return whenStarted.then(async () => {
+
+          const execution = execZ(start);
+
+          abort = () => execution.abort();
+
+          return execution.whenDone();
+        }).finally(execEnd);
       },
       abort() {
         abort();
       },
     };
-  };
+  });
 }
