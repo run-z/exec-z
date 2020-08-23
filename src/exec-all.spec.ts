@@ -55,6 +55,17 @@ describe('execZAll', () => {
     all = execZAll([exec1, exec2]);
   });
 
+  it('starts when all executions do', async () => {
+    await all.whenStarted();
+    expect(isDone1).toBe(false);
+    expect(isDone2).toBe(false);
+
+    done1('1');
+    done2('2');
+    expect(await all.whenDone()).toEqual(['1', '2']);
+    expect(isDone1).toBe(true);
+    expect(isDone2).toBe(true);
+  });
   it('succeeds when all executions do', async () => {
 
     const promise = all.whenDone();

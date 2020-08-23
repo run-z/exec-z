@@ -102,7 +102,9 @@ export function execZ<TResult>(
       abort = noop;
       init.abort?.();
     };
-    Promise.resolve(init.whenStarted?.()).then(start, dontStart);
+    Promise.resolve()
+        .then(() => init.whenStarted?.())
+        .then(() => start(), error => dontStart(error));
   };
 
   const done = (): void => {
@@ -122,11 +124,11 @@ export function execZ<TResult>(
   );
 
   return {
-    whenDone() {
-      return whenDone;
-    },
     whenStarted() {
       return whenStarted();
+    },
+    whenDone() {
+      return whenDone;
     },
     abort() {
       abort();
