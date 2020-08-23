@@ -165,9 +165,34 @@ describe('poolZExecutions', () => {
     expect(finished.has(1)).toBe(false);
     expect(finished.get(2)).toBeNull();
   });
+  it('returns execution aborted before started to the pool', async () => {
+
+    const pool = poolZExecutions(1);
+
+    const [start1] = testJob(1);
+    const exec1 = pool(start1);
+
+    const [start2, end2] = testJob(2);
+    const exec2 = pool(start2);
+
+    exec1.abort();
+    expect(await exec1.whenStarted().catch(asis)).toBeInstanceOf(AbortedZExecutionError);
+    await exec2.whenStarted();
+
+    expect(started.has(1)).toBe(false);
+    expect(started.has(2)).toBe(true);
+    expect(aborted.has(1)).toBe(false);
+    expect(aborted.has(2)).toBe(false);
+
+    end2();
+    expect(await exec1.whenDone().catch(asis)).toBeInstanceOf(AbortedZExecutionError);
+    await exec2.whenDone();
+    expect(finished.has(1)).toBe(false);
+    expect(finished.get(2)).toBeNull();
+  });
   it('aborts started execution', async () => {
 
-    const pool = poolZExecutions();
+    const pool = poolZExecutions(1);
 
     const [start1] = testJob(1);
     const exec1 = pool(start1);
@@ -176,8 +201,8 @@ describe('poolZExecutions', () => {
     const exec2 = pool(start2);
 
     await exec1.whenStarted();
-    await exec2.whenStarted();
     exec1.abort();
+    await exec2.whenStarted();
 
     expect(started.has(1)).toBe(true);
     expect(started.has(2)).toBe(true);
