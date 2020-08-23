@@ -15,15 +15,16 @@ import type { ZExecution } from './execution';
  */
 export function failZ<TResult>(reason: any): ZExecution<TResult> {
 
-  const rejection = Promise.reject(reason);
+  const rejection = Promise.reject<TResult>(reason);
 
   return {
-    abort: noop,
     whenStarted() {
       return zExecutionDone;
     },
     whenDone() {
       return rejection;
     },
+    abort: noop,
+    then: rejection.then.bind(rejection),
   };
 }

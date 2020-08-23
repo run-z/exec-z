@@ -10,13 +10,14 @@ import type { ZExecution } from './execution';
  * @internal
  */
 const noopZExecution: ZExecution = {
-  abort: noop,
   whenStarted() {
     return zExecutionDone;
   },
   whenDone() {
     return zExecutionDone;
   },
+  abort: noop,
+  then: zExecutionDone.then.bind(zExecutionDone),
 };
 
 /**

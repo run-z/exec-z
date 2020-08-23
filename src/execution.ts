@@ -7,7 +7,7 @@
  *
  * @typeparam TResult  Execution result type.
  */
-export interface ZExecution<TResult = void> {
+export interface ZExecution<TResult = void> extends PromiseLike<TResult> {
 
   /**
    * Awaits for execution to start.

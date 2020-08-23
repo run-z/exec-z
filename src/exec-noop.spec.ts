@@ -18,4 +18,9 @@ describe('execZNoOp', () => {
       expect(execZNoOp().abort).toBe(noop);
     });
   });
+  describe('then', () => {
+    it('is resolved to `undefined`', async () => {
+      expect(await execZNoOp()).toBeUndefined();
+    });
+  });
 });

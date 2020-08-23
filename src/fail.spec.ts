@@ -32,4 +32,12 @@ describe('failZ', () => {
       expect(await immediateResolution(exec.whenDone())).toEqual([undefined, 'test']);
     });
   });
+  describe('then', () => {
+    it('fails with rejection reason', async () => {
+
+      const reason = new Error('test');
+
+      expect(await Promise.resolve(failZ(reason)).catch(asis)).toBe(reason);
+    });
+  });
 });

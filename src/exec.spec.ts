@@ -183,4 +183,17 @@ describe('execZ', () => {
       expect(await exec.whenDone().catch(asis)).toBeUndefined();
     });
   });
+
+  describe('then', () => {
+    it('is resolved to execution result', async () => {
+
+      const result = 'test';
+
+      expect(await execZ<string>(() => ({
+        whenDone() {
+          return result;
+        },
+      }))).toBe(result);
+    });
+  });
 });
