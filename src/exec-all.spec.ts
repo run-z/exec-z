@@ -76,6 +76,16 @@ describe('execZAll', () => {
     expect(isDone1).toBe(true);
     expect(isDone2).toBe(true);
   });
+  it('combines execution result', async () => {
+
+    const promise = execZAll([exec1, exec2], ([r1, r2]) => r1 + r2).whenDone();
+
+    done1('1');
+    done2('2');
+    expect(await promise).toEqual('12');
+    expect(isDone1).toBe(true);
+    expect(isDone2).toBe(true);
+  });
   it('fails when one of the executions fail', async () => {
 
     const promise = all.whenDone();
