@@ -2,6 +2,7 @@
  * @packageDocumentation
  * @module @run-z/exec-z
  */
+import { noop } from '@proc7ts/primitives';
 import * as os from 'os';
 import { AbortedZExecutionError } from './aborted-execution-error';
 import type { ZExecutionStarter } from './exec';
@@ -55,23 +56,34 @@ export function poolZExecutions<TResult>(
 
   return starter => execZ(() => {
 
-    let start = starter;
+    let start: () => void = noop;
+    let dontStart: (error: any) => void = noop;
+    const whenStarted = (): Promise<void> => new Promise<void>(((resolve, reject) => {
+      start = resolve;
+      dontStart = reject;
+    }));
+
     let abort = (): void => {
-      start = () => failZ<TResult>(new AbortedZExecutionError());
+
+      const aborted = new AbortedZExecutionError();
+
+      starter = () => failZ<TResult>(aborted);
+      dontStart(aborted);
     };
 
-    const whenStarted = whenReady();
+    const ready = whenReady();
 
     return {
       whenStarted() {
-        return whenStarted;
+        return whenStarted();
       },
       whenDone() {
-        return whenStarted.then(async () => {
+        return ready.then(() => {
 
-          const execution = execZ(start);
+          const execution = execZ(starter);
 
           abort = () => execution.abort();
+          execution.whenStarted().then(() => start(), error => dontStart(error));
 
           return execution.whenDone();
         }).finally(execEnd);

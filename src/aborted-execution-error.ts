@@ -18,7 +18,10 @@ export class AbortedZExecutionError extends Error {
    * @param abortReason  A reason of abort.
    * @param message  Error message.
    */
-  constructor(readonly abortReason?: any, message = String(abortReason)) {
+  constructor(
+      readonly abortReason?: any,
+      message = String(abortReason ?? 'Execution aborted'),
+  ) {
     super(message);
   }
 

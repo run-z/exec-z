@@ -8,13 +8,11 @@ describe('poolZExecutions', () => {
   let started: Set<number>;
   let finished: Map<number, any>;
   let aborted: Set<number>;
-  let startWaiters: Map<number, () => void>;
 
   beforeEach(() => {
     started = new Set();
     finished = new Map();
     aborted = new Set();
-    startWaiters = new Map();
   });
 
   it('executes immediately when `maxRunning` is zero or negative', () => {
@@ -31,7 +29,8 @@ describe('poolZExecutions', () => {
     const [start2, end2] = testJob(2);
     const exec2 = pool(start2);
 
-    await whenStarted(1);
+    await exec1.whenStarted();
+    await exec2.whenStarted();
 
     expect(started.size).toBe(2);
     expect(aborted.size).toBe(0);
@@ -61,7 +60,7 @@ describe('poolZExecutions', () => {
     const [start2, end2] = testJob(2);
     const exec2 = pool(start2);
 
-    await whenStarted(1);
+    await exec1.whenStarted();
 
     expect(started.size).toBe(1);
     expect(aborted.size).toBe(0);
@@ -69,7 +68,7 @@ describe('poolZExecutions', () => {
 
     end1();
     await exec1.whenDone();
-    await whenStarted(2);
+    await exec2.whenStarted();
 
     expect(started.size).toBe(2);
     expect(aborted.size).toBe(0);
@@ -90,7 +89,7 @@ describe('poolZExecutions', () => {
     const [start1, end1] = testJob(1);
     const exec1 = pool(start1);
 
-    await whenStarted(1);
+    await exec1.whenStarted();
 
     expect(started.size).toBe(1);
     expect(aborted.size).toBe(0);
@@ -105,7 +104,7 @@ describe('poolZExecutions', () => {
     const [start2, end2] = testJob(2);
     const exec2 = pool(start2);
 
-    await whenStarted(2);
+    await exec2.whenStarted();
 
     expect(started.size).toBe(2);
     expect(aborted.size).toBe(0);
@@ -129,7 +128,7 @@ describe('poolZExecutions', () => {
     const exec2 = pool(start2);
 
     exec1.abort();
-    await whenStarted(2);
+    await exec2.whenStarted();
 
     expect(started.has(1)).toBe(false);
     expect(started.has(2)).toBe(true);
@@ -137,7 +136,31 @@ describe('poolZExecutions', () => {
     expect(aborted.has(2)).toBe(false);
 
     end2();
+    expect(await exec1.whenStarted().catch(asis)).toBeInstanceOf(AbortedZExecutionError);
     expect(await exec1.whenDone().catch(asis)).toBeInstanceOf(AbortedZExecutionError);
+    await exec2.whenDone();
+    expect(finished.has(1)).toBe(false);
+    expect(finished.get(2)).toBeNull();
+  });
+  it('reports failed to start execution', async () => {
+
+    const pool = poolZExecutions();
+    const error = new Error('test');
+    const [start1] = testJob(1, () => Promise.reject(error));
+    const exec1 = pool(start1);
+
+    const [start2, end2] = testJob(2);
+    const exec2 = pool(start2);
+
+    await exec2.whenStarted();
+    expect(await exec1.whenStarted().catch(asis)).toBe(error);
+
+    expect(started.has(1)).toBe(true);
+    expect(started.has(2)).toBe(true);
+    expect(aborted.has(1)).toBe(false);
+    expect(aborted.has(2)).toBe(false);
+
+    end2();
     await exec2.whenDone();
     expect(finished.has(1)).toBe(false);
     expect(finished.get(2)).toBeNull();
@@ -152,8 +175,8 @@ describe('poolZExecutions', () => {
     const [start2, end2] = testJob(2);
     const exec2 = pool(start2);
 
-    await whenStarted(1);
-    await whenStarted(2);
+    await exec1.whenStarted();
+    await exec2.whenStarted();
     exec1.abort();
 
     expect(started.has(1)).toBe(true);
@@ -168,17 +191,10 @@ describe('poolZExecutions', () => {
     expect(finished.get(2)).toBeNull();
   });
 
-  function whenStarted(id: number): Promise<void> {
-    return new Promise(resolve => {
-      if (started.has(id)) {
-        resolve();
-      } else {
-        startWaiters.set(id, resolve);
-      }
-    });
-  }
-
-  function testJob(id: number): [start: ZExecutionStarter, end: (error?: any) => void] {
+  function testJob(
+      id: number,
+      whenStarted: () => Promise<void> = () => Promise.resolve(),
+  ): [start: ZExecutionStarter, end: (error?: any) => void] {
 
     let end!: (error?: any) => void;
     const whenEnd = new Promise((resolve, reject) => {
@@ -192,21 +208,19 @@ describe('poolZExecutions', () => {
     });
     const start: ZExecutionStarter = () => {
       started.add(id);
-      startWaiters.get(id)?.();
-
-      const whenDone = whenEnd.then(
-          () => {
-            finished.set(id, null);
-          },
-          error => {
-            finished.set(id, error);
-            return Promise.reject(error);
-          },
-      );
 
       return {
+        whenStarted,
         whenDone() {
-          return whenDone;
+          return whenEnd.then(
+              () => {
+                finished.set(id, null);
+              },
+              error => {
+                finished.set(id, error);
+                return Promise.reject(error);
+              },
+          );
         },
         abort() {
           aborted.add(id);
