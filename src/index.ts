@@ -7,3 +7,4 @@ export * from './execution';
 export * from './fail';
 export * from './pool-executions';
 export * from './resolve';
+export * from './spawn';
