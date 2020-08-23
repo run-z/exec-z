@@ -17,7 +17,6 @@ const noopZExecution: ZExecution = {
     return zExecutionDone;
   },
   abort: noop,
-  then: zExecutionDone.then.bind(zExecutionDone),
 };
 
 /**

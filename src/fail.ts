@@ -25,6 +25,5 @@ export function failZ<TResult>(reason: any): ZExecution<TResult> {
       return rejection;
     },
     abort: noop,
-    then: rejection.then.bind(rejection),
   };
 }

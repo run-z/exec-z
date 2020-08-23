@@ -25,6 +25,5 @@ export function resolveZ<TResult>(result: TResult | PromiseLike<TResult>): ZExec
       return resolution;
     },
     abort: noop,
-    then: resolution.then.bind(resolution),
   };
 }

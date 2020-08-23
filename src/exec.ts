@@ -136,8 +136,5 @@ export function execZ<TResult>(
     abort() {
       abort();
     },
-    then(onfulfilled, onrejected) {
-      return whenDone.then(onfulfilled, onrejected);
-    },
   };
 }

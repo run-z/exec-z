@@ -18,9 +18,4 @@ describe('resolveZ', () => {
       expect(resolveZ('test').abort).toBe(noop);
     });
   });
-  describe('then', () => {
-    it('is resolved to result', async () => {
-      expect(await resolveZ('test')).toBe('test');
-    });
-  });
 });

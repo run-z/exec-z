@@ -111,4 +111,10 @@ describe('execZAll', () => {
       expect(abort2).toHaveBeenCalledTimes(1);
     });
   });
+
+  describe('without executions', () => {
+    it('succeeds', async () => {
+      expect(await execZAll([]).whenDone()).toHaveLength(0);
+    });
+  });
 });
