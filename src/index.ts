@@ -6,3 +6,4 @@ export * from './exec-noop';
 export * from './execution';
 export * from './fail';
 export * from './pool-executions';
+export * from './resolve';
