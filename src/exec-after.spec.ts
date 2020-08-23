@@ -6,8 +6,8 @@ import type { ZExecution } from './execution';
 
 describe('execZAfter', () => {
 
-  let first: ZExecution;
-  let done1: () => void;
+  let first: ZExecution<string>;
+  let done1: (value: string) => void;
   let reject1: (error: any) => void;
   let abort1: jest.Mock;
 
@@ -22,12 +22,11 @@ describe('execZAfter', () => {
     }));
   });
 
-  let second: Promise<void>;
   let done2: () => void;
   let reject2: (error: any) => void;
   let abort2: jest.Mock;
 
-  let exec: ZExecution;
+  let exec: ZExecution<number>;
   let success: boolean;
   let error: any;
 
@@ -38,37 +37,30 @@ describe('execZAfter', () => {
     done2 = undefined!;
     reject2 = undefined!;
     abort2 = jest.fn();
-    second = new Promise<void>(resolveSecond => {
-      exec = execZAfter(
-          first,
-          () => ({
-            whenDone() {
+    exec = execZAfter(
+        first,
+        firstResult => ({
+          whenDone() {
+            return new Promise<number>((resolve, reject) => {
+              done2 = () => resolve(firstResult.length);
+              reject2 = reject;
+            });
+          },
+          abort: abort2,
+        }),
+    );
 
-              const result = new Promise<void>((resolve, reject) => {
-                done2 = resolve;
-                reject2 = reject;
-              });
-
-              resolveSecond();
-
-              return result;
-            },
-            abort: abort2,
-          }),
-      );
-
-      exec.whenDone().then(() => success = true, e => error = e);
-    }).then(asis);
+    exec.whenDone().then(() => success = true, e => error = e);
   });
 
   describe('whenDone', () => {
     it('succeeds when both executions succeed', async () => {
-      done1();
-      await second;
+      done1('test');
+      await exec.whenStarted();
       expect(success).toBe(false);
 
       done2();
-      await exec.whenDone();
+      expect(await exec.whenDone()).toBe(4);
       expect(success).toBe(true);
     });
     it('fails when first execution failed', async () => {
@@ -84,8 +76,8 @@ describe('execZAfter', () => {
 
       const reason = new Error('test');
 
-      done1();
-      await second;
+      done1('test');
+      await exec.whenStarted();
       reject2(reason);
 
       expect(await exec.whenDone().catch(asis)).toBe(reason);
@@ -96,7 +88,7 @@ describe('execZAfter', () => {
   describe('abort', () => {
     it('aborts only first execution before the second constructed', async () => {
       exec.abort();
-      done1();
+      done1('test');
       expect(await exec.whenDone().catch(asis)).toBeInstanceOf(AbortedZExecutionError);
 
       expect(abort1).toHaveBeenCalledTimes(1);
@@ -104,11 +96,11 @@ describe('execZAfter', () => {
       expect(success).toBe(false);
     });
     it('aborts only second execution after it is started', async () => {
-      done1();
-      await second;
+      done1('test');
+      await exec.whenStarted();
       exec.abort();
       done2();
-      await exec.whenDone();
+      expect(await exec.whenDone()).toBe(4);
 
       expect(abort1).not.toHaveBeenCalled();
       expect(abort2).toHaveBeenCalledTimes(1);

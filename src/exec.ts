@@ -12,12 +12,15 @@ import type { ZExecution } from './execution';
  * Constructs new execution initializer.
  *
  * @typeparam TResult  Execution result type.
+ * @typeparam TArgs  Starter arguments tuple type.
  */
-export type ZExecutionStarter<TResult = void> =
+export type ZExecutionStarter<TResult = void, TArgs extends any[] = []> =
 /**
+ * @param args  Starter arguments.
+ *
  * @returns  Either execution initializer, or a promise-like instance resolving to one.
  */
-    (this: void) => ZExecutionInit<TResult> | PromiseLike<ZExecutionInit<TResult>>;
+    (this: void, ...args: TArgs) => ZExecutionInit<TResult> | PromiseLike<ZExecutionInit<TResult>>;
 
 /**
  * Execution initializer.

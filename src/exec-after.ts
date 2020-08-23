@@ -10,15 +10,16 @@ import type { ZExecution } from './execution';
 /**
  * Performs execution after previous one succeed.
  *
+ * @typeparam TFirstResult  First execution result type.
  * @typeparam TResult  Second execution result type.
  * @param first  Execution to complete first.
- * @param next  Next execution starter function.
+ * @param next  Next execution starter function accepting result of the first execution as its argument.
  *
  * @returns New execution instance started when the first one completes.
  */
-export function execZAfter<TResult>(
-    first: ZExecution<unknown>,
-    next: ZExecutionStarter<TResult>,
+export function execZAfter<TFirstResult, TResult>(
+    first: ZExecution<TFirstResult>,
+    next: ZExecutionStarter<TResult, [TFirstResult]>,
 ): ZExecution<TResult> {
 
   const whenFirstDone = first.whenDone();
@@ -26,9 +27,9 @@ export function execZAfter<TResult>(
   return execZ(() => {
 
     let abort: () => void;
-    let startNext = async (): Promise<TResult> => {
+    let startNext = async (firstResult: TFirstResult): Promise<TResult> => {
 
-      const exec = execZ(next);
+      const exec = execZ(() => next(firstResult));
 
       abort = () => {
         abort = noop;
@@ -49,7 +50,7 @@ export function execZAfter<TResult>(
         return whenFirstDone;
       },
       whenDone() {
-        return whenFirstDone.then(() => startNext());
+        return whenFirstDone.then(firstResult => startNext(firstResult));
       },
       abort() {
         abort();
