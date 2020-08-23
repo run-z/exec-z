@@ -16,4 +16,4 @@ Abortable Executions
 [github-image]: https://img.shields.io/static/v1?logo=github&label=GitHub&message=project&color=informational
 [github-url]: https://github.com/run-z/exec-z
 [api-docs-image]: https://img.shields.io/static/v1?logo=typescript&label=API&message=docs&color=informational
-[API documentation]: https://run-z.github.io/optionz/ 
+[API documentation]: https://run-z.github.io/exec-z/ 
