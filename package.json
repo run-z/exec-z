@@ -20,6 +20,12 @@
   "main": "dist/exec-z.js",
   "module": "dist/exec-z.mjs",
   "types": "index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/exec-z.mjs",
+      "require": "./dist/exec-z.js"
+    }
+  },
   "dependencies": {
     "@proc7ts/a-iterable": "^2.7.0",
     "@proc7ts/call-thru": "^4.0.0",
