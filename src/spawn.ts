@@ -14,11 +14,11 @@ import type { ZExecution } from './execution';
 export interface SpawnZConfig {
 
   /**
-   * A signal to send to spawned process on abort.
+   * A signal to send to spawned process on abort execution, or a function to call to kill it.
    *
    * @default `SIGTERM`
    */
-  readonly kill?: NodeJS.Signals | number;
+  readonly kill?: NodeJS.Signals | number | ((process: ChildProcess) => void);
 
 }
 
@@ -34,6 +34,12 @@ export function spawnZ(
     spawn: (this: void) => ChildProcess,
     config: SpawnZConfig = {},
 ): ZExecution {
+
+  const { kill } = config;
+  const killProcess = typeof kill === 'function'
+      ? kill.bind(config)
+      : (process: ChildProcess) => process.kill(kill);
+
   return execZ<void>(() => {
 
     let abort: () => void;
@@ -42,7 +48,7 @@ export function spawnZ(
       const childProcess = spawn();
 
       abort = (): void => {
-        childProcess.kill(config.kill);
+        killProcess(childProcess);
       };
 
       const reportError = (error: any): void => {

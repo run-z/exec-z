@@ -85,6 +85,20 @@ describe('spawnZ', () => {
     expect(error).toBeInstanceOf(AbortedZExecutionError);
     expect(error.abortReason).toBe('SIGKILL');
   });
+  it('kills the process by custom method on abort', async () => {
+
+    const kill = jest.fn(() => { events.emit('exit', null, 'SIGUSR1'); });
+    const exec = spawnZ(() => childProcess, { kill });
+
+    await exec.whenStarted();
+    exec.abort();
+
+    const error = await exec.whenDone().catch(asis);
+
+    expect(error).toBeInstanceOf(AbortedZExecutionError);
+    expect(error.abortReason).toBe('SIGUSR1');
+    expect(kill).toHaveBeenCalledWith(childProcess);
+  });
   it('does not start the process on immediate abort', async () => {
 
     const spawn = jest.fn();
