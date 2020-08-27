@@ -2,6 +2,7 @@ import { asis } from '@proc7ts/primitives';
 import type { ChildProcess } from 'child_process';
 import { EventEmitter } from 'events';
 import { AbortedZExecutionError } from './aborted-execution-error';
+import { FailedZExecutionError } from './failed-execution-error';
 import { spawnZ } from './spawn';
 
 describe('spawnZ', () => {
@@ -35,7 +36,10 @@ describe('spawnZ', () => {
     await exec.whenStarted();
     events.emit('exit', 13);
 
-    expect(await exec.whenDone().catch(asis)).toBe(13);
+    const error = await exec.whenDone().catch(asis);
+
+    expect(error).toBeInstanceOf(FailedZExecutionError);
+    expect(error.failure).toBe(13);
   });
   it('fails when process terminates by signal', async () => {
 

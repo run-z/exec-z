@@ -4,25 +4,25 @@
  */
 
 /**
- * Error raised when execution aborted for some predictable reason.
- *
- * E.g. when {@link ZExecution.abort} method is called.
- *
- * Rejecting with this error as a reason is not considered an execution failure.
+ * Error raised when execution failed.
  */
-export class AbortedZExecutionError extends Error {
+export class FailedZExecutionError extends Error {
 
   /**
    * Constructs aborted execution error.
    *
-   * @param abortReason  A reason of abort.
+   * @param failure  Execution failure.
    * @param message  Error message.
    */
   constructor(
-      readonly abortReason?: any,
-      message = String(abortReason ?? 'Execution aborted'),
+      readonly failure?: any,
+      message = String(failure ?? 'Execution failed'),
   ) {
     super(message);
+  }
+
+  toString(): string {
+    return `Failed: ${this.message}`;
   }
 
 }

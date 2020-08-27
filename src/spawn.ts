@@ -7,6 +7,7 @@ import type { ChildProcess } from 'child_process';
 import { AbortedZExecutionError } from './aborted-execution-error';
 import { execZ } from './exec';
 import type { ZExecution } from './execution';
+import { FailedZExecutionError } from './failed-execution-error';
 
 /**
  * Spawned process configuration.
@@ -51,7 +52,7 @@ export function spawnZ(
         killProcess(childProcess);
       };
 
-      const reportError = (error: any): void => {
+      const reportError = (error: Error): void => {
         abort = noop;
         reject(error);
       };
@@ -61,7 +62,7 @@ export function spawnZ(
         if (signal) {
           reportError(new AbortedZExecutionError(signal));
         } else if (code) {
-          reportError(code > 127 ? new AbortedZExecutionError(code) : code);
+          reportError(code > 127 ? new AbortedZExecutionError(code) : new FailedZExecutionError(code));
         } else {
           abort = noop;
           resolve();

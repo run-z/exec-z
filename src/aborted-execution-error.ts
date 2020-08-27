@@ -25,4 +25,8 @@ export class AbortedZExecutionError extends Error {
     super(message);
   }
 
+  toString(): string {
+    return `Aborted: ${this.message}`;
+  }
+
 }
