@@ -47,7 +47,7 @@ describe('spawnZWorker', () => {
     await exec.whenStarted();
     exec.abort();
 
-    await exec.whenDone();
+    expect(await exec.whenDone()).toBeUndefined();
   });
   it('is aborted by custom method', async () => {
 
