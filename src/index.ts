@@ -9,3 +9,4 @@ export * from './failed-execution-error';
 export * from './pool-executions';
 export * from './resolve';
 export * from './spawn';
+export * from './spawn-worker';
