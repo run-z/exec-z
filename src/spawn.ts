@@ -29,7 +29,7 @@ export interface SpawnZConfig {
  * @param spawn  Starter function returning started child process instance.
  * @param config  Spawned process configuration.
  *
- * @returns New process execution instance destroying killing the process on abort.
+ * @returns New process execution instance killing the process on abort.
  */
 export function spawnZ(
     spawn: (this: void) => ChildProcess,
