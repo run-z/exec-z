@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>ZExecutionInit | Abortable Executions</title>
+	<title>SpawnZWorkerConfig | Abortable Executions</title>
 	<meta name="description" content="Documentation for Abortable Executions">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -57,10 +57,10 @@
 					<a href="../modules/@run-z_exec-z.html">@run-z/exec-z</a>
 				</li>
 				<li>
-					<a href="@run-z_exec-z.ZExecutionInit.html">ZExecutionInit</a>
+					<a href="@run-z_exec-z.SpawnZWorkerConfig.html">SpawnZWorkerConfig</a>
 				</li>
 			</ul>
-			<h1>Interface ZExecutionInit&lt;TResult&gt;</h1>
+			<h1>Interface SpawnZWorkerConfig</h1>
 		</div>
 	</div>
 </header>
@@ -70,29 +70,15 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Execution initializer.</p>
+						<p>Spawned worker thread configuration.</p>
 					</div>
-					<p>Returned from <a href="../modules/@run-z_exec-z.html#ZExecutionStarter">execution starter</a> to construct new executions.</p>
 				</div>
-			</section>
-			<section class="tsd-panel tsd-type-parameters">
-				<h3>Type parameters</h3>
-				<ul class="tsd-type-parameters">
-					<li>
-						<h4>TResult</h4>
-						<div class="tsd-comment tsd-typography">
-							<div class="lead">
-								<p>Execution result type.</p>
-							</div>
-						</div>
-					</li>
-				</ul>
 			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">ZExecutionInit</span>
+						<span class="target">SpawnZWorkerConfig</span>
 					</li>
 				</ul>
 			</section>
@@ -103,9 +89,7 @@
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="@run-z_exec-z.ZExecutionInit.html#abort" class="tsd-kind-icon">abort</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="@run-z_exec-z.ZExecutionInit.html#whenDone" class="tsd-kind-icon">when<wbr>Done</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="@run-z_exec-z.ZExecutionInit.html#whenStarted" class="tsd-kind-icon">when<wbr>Started</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="@run-z_exec-z.SpawnZWorkerConfig.html#stop" class="tsd-kind-icon">stop</a></li>
 							</ul>
 						</section>
 					</div>
@@ -114,73 +98,38 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
-					<a name="abort" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> abort</h3>
+					<a name="stop" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> stop</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">abort<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">stop<span class="tsd-signature-symbol">(</span>worker<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Worker</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/run-z/exec-z/blob/c7844b5/src/exec.ts#L56">run-z/exec-z/src/exec.ts:56</a></li>
+									<li>Defined in <a href="https://github.com/run-z/exec-z/blob/c7844b5/src/spawn-worker.ts#L23">run-z/exec-z/src/spawn-worker.ts:23</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Aborts the execution.</p>
+									<p>Stops worker thread.</p>
 								</div>
-								<p>When omitted the execution won&#39;t be aborted</p>
+								<dl class="tsd-comment-tags">
+									<dt>default</dt>
+									<dd><p>Invokes <code>Worker.terminate()</code></p>
+									</dd>
+								</dl>
 							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>worker: <span class="tsd-signature-type">Worker</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The worker to stop.</p>
+									</div>
+								</li>
+							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
-					<a name="whenDone" class="tsd-anchor"></a>
-					<h3>when<wbr>Done</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">when<wbr>Done<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">TResult</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">PromiseLike</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TResult</span><span class="tsd-signature-symbol">&gt;</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/run-z/exec-z/blob/c7844b5/src/exec.ts#L49">run-z/exec-z/src/exec.ts:49</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Constructs a promise that resolves to execution result.</p>
-								</div>
-							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">TResult</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">PromiseLike</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TResult</span><span class="tsd-signature-symbol">&gt;</span></h4>
-							<p>Either execution result, or a promise-like instance resolved to the one.</p>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
-					<a name="whenStarted" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> when<wbr>Started</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">when<wbr>Started<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">PromiseLike</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/run-z/exec-z/blob/c7844b5/src/exec.ts#L42">run-z/exec-z/src/exec.ts:42</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Constructs a promise resolved when execution starts.</p>
-								</div>
-								<p>When omitted the execution is started when starter finishes its work.</p>
-							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">PromiseLike</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span></h4>
-							<p>Either none, or a promise-like instance resolved when execution started, or rejected when it is aborted
-							before being started.</p>
 						</li>
 					</ul>
 				</section>
@@ -208,30 +157,24 @@
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="@run-z_exec-z.SpawnZConfig.html" class="tsd-kind-icon">SpawnZConfig</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="@run-z_exec-z.SpawnZWorkerConfig.html" class="tsd-kind-icon">SpawnZWorker<wbr>Config</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
-						<a href="@run-z_exec-z.ZExecution.html" class="tsd-kind-icon">ZExecution</a>
-					</li>
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
-						<a href="@run-z_exec-z.ZExecutionInit.html" class="tsd-kind-icon">ZExecution<wbr>Init</a>
+					<li class="current tsd-kind-interface tsd-parent-kind-module">
+						<a href="@run-z_exec-z.SpawnZWorkerConfig.html" class="tsd-kind-icon">SpawnZWorker<wbr>Config</a>
 						<ul>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="@run-z_exec-z.ZExecutionInit.html#abort" class="tsd-kind-icon">abort</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="@run-z_exec-z.ZExecutionInit.html#whenDone" class="tsd-kind-icon">when<wbr>Done</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="@run-z_exec-z.ZExecutionInit.html#whenStarted" class="tsd-kind-icon">when<wbr>Started</a>
+								<a href="@run-z_exec-z.SpawnZWorkerConfig.html#stop" class="tsd-kind-icon">stop</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="@run-z_exec-z.ZExecution.html" class="tsd-kind-icon">ZExecution</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="@run-z_exec-z.ZExecutionInit.html" class="tsd-kind-icon">ZExecution<wbr>Init</a>
+					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-has-type-parameter">
 						<a href="../modules/@run-z_exec-z.html#ZExecutionStarter" class="tsd-kind-icon">ZExecution<wbr>Starter</a>
 					</li>
