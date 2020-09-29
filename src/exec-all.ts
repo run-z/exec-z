@@ -2,7 +2,6 @@
  * @packageDocumentation
  * @module @run-z/exec-z
  */
-import { mapIt } from '@proc7ts/a-iterable';
 import { asis, noop } from '@proc7ts/primitives';
 import { execZ } from './exec';
 import type { ZExecution } from './execution';
@@ -402,13 +401,13 @@ export function execZAll<TResult, TCombination>(
 
     return {
       whenStarted() {
-        return Promise.all(mapIt(
+        return Promise.all(Array.from(
             toAbort,
             exec => exec.whenStarted(),
         ));
       },
       whenDone() {
-        return Promise.all(mapIt(
+        return Promise.all(Array.from(
             toAbort,
             exec => exec.whenDone().catch(error => {
               fail(exec);
