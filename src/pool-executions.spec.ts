@@ -222,7 +222,7 @@ describe('poolZExecutions', () => {
   ): [start: ZExecutionStarter, end: (error?: any) => void] {
 
     let end!: (error?: any) => void;
-    const whenEnd = new Promise((resolve, reject) => {
+    const whenEnd = new Promise<void>((resolve, reject) => {
       end = error => {
         if (error != null) {
           reject(error);
