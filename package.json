@@ -18,24 +18,22 @@
     "url": "https://github.com/run-z/exec-z/issues"
   },
   "type": "module",
-  "main": "dist/exec-z.cjs",
-  "module": "dist/exec-z.js",
-  "types": "index.d.ts",
+  "main": "./dist/exec-z.cjs",
+  "module": "./dist/exec-z.js",
+  "types": "./index.d.ts",
   "exports": {
-    ".": {
-      "import": "./dist/exec-z.js",
-      "require": "./dist/exec-z.cjs"
-    }
+    "import": "./dist/exec-z.js",
+    "require": "./dist/exec-z.cjs"
   },
   "dependencies": {
     "@proc7ts/primitives": "^1.5.1"
   },
   "devDependencies": {
-    "@proc7ts/eslint-config": "^2.0.5",
     "@proc7ts/rollup-helpers": "^1.1.1",
     "@proc7ts/rollup-plugin-flat-dts": "^1.1.2",
     "@rollup/plugin-commonjs": "^16.0.0",
     "@rollup/plugin-node-resolve": "^10.0.0",
+    "@run-z/eslint-config": "^1.0.0",
     "@types/jest": "^26.0.15",
     "@types/node": "^12.19.7",
     "@typescript-eslint/eslint-plugin": "^4.8.2",
