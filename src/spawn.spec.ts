@@ -91,7 +91,7 @@ describe('spawnZ', () => {
   });
   it('kills the process by custom method on abort', async () => {
 
-    const kill = jest.fn(() => { events.emit('exit', null, 'SIGUSR1'); });
+    const kill = jest.fn((_proc: ChildProcess) => { events.emit('exit', null, 'SIGUSR1'); });
     const exec = spawnZ(() => childProcess, { kill });
 
     await exec.whenStarted();
