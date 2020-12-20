@@ -9,7 +9,7 @@ import type { ZExecution } from './execution';
 /**
  * Performs failed execution.
  *
- * @param reason  A reason of execution failure.
+ * @param reason - A reason of execution failure.
  *
  * @returns Failed execution instance.
  */

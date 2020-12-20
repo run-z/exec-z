@@ -11,8 +11,8 @@ export class FailedZExecutionError extends Error {
   /**
    * Constructs aborted execution error.
    *
-   * @param failure  Execution failure.
-   * @param message  Error message.
+   * @param failure - Execution failure.
+   * @param message - Error message.
    */
   constructor(
       readonly failure?: any,

@@ -15,8 +15,8 @@ export class AbortedZExecutionError extends Error {
   /**
    * Constructs aborted execution error.
    *
-   * @param abortReason  A reason of abort.
-   * @param message  Error message.
+   * @param abortReason - A reason of abort.
+   * @param message - Error message.
    */
   constructor(
       readonly abortReason?: any,

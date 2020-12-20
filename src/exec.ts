@@ -16,7 +16,7 @@ import type { ZExecution } from './execution';
  */
 export type ZExecutionStarter<TResult = void, TArgs extends any[] = []> =
 /**
- * @param args  Starter arguments.
+ * @param args - Starter arguments.
  *
  * @returns  Either execution initializer, or a promise-like instance resolving to one.
  */
@@ -61,7 +61,7 @@ export interface ZExecutionInit<TResult> {
  * Starts execution by the given starter.
  *
  * @typeparam TResult  Execution result type.
- * @param starter  Execution starter function.
+ * @param starter - Execution starter function.
  *
  * @returns New execution instance to start by the given starter.
  */

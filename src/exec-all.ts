@@ -13,7 +13,7 @@ import type { ZExecution } from './execution';
  *
  * @typeparam T1  First execution result type.
  * @typeparam T2  Second execution result type.
- * @param executions  An iterable of executions.
+ * @param executions - An iterable of executions.
  *
  * @returns New execution instance.
  */
@@ -32,8 +32,8 @@ export function execZAll<T1, T2>(
  * @typeparam T1  First execution result type.
  * @typeparam T2  Second execution result type.
  * @typeparam T  Execution results combination type.
- * @param executions  An iterable of executions.
- * @param combine  Combiner function accepting execution results array and returning their combination.
+ * @param executions - An iterable of executions.
+ * @param combine - Combiner function accepting execution results array and returning their combination.
  *
  * @returns New execution instance.
  */
@@ -356,7 +356,7 @@ export function execZAll<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13,
  * Aborts other executions once one of them fail.
  *
  * @typeparam TResult  Executions result type.
- * @param executions  An iterable of executions.
+ * @param executions - An iterable of executions.
  *
  * @returns New execution instance.
  */
@@ -370,8 +370,8 @@ export function execZAll<TResult>(executions: Iterable<ZExecution<TResult>>): ZE
  *
  * @typeparam TResult  Executions result type.
  * @typeparam TCombination  Execution results combination type.
- * @param executions  An iterable of executions.
- * @param combine  Combiner function accepting execution results array and returning their combination.
+ * @param executions - An iterable of executions.
+ * @param combine - Combiner function accepting execution results array and returning their combination.
  *
  * @returns New execution instance.
  */

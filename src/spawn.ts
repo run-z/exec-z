@@ -26,8 +26,8 @@ export interface SpawnZConfig {
 /**
  * Spawns child process.
  *
- * @param spawn  Starter function returning started child process instance.
- * @param config  Spawned process configuration.
+ * @param spawn - Starter function returning started child process instance.
+ * @param config - Spawned process configuration.
  *
  * @returns New process execution instance killing the process on abort.
  */

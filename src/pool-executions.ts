@@ -14,7 +14,7 @@ import { failZ } from './fail';
  * Constructs execution pool.
  *
  * @typeparam TResult  Execution result type.
- * @param maxRunning  The maximum number of simultaneously running executions. Zero or negative value means no limit.
+ * @param maxRunning - The maximum number of simultaneously running executions. Zero or negative value means no limit.
  * Equals to the number of CPUs by default.
  *
  * @returns A function accepting execution starter and returning started or pending execution.

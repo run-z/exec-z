@@ -9,7 +9,7 @@ import type { ZExecution } from './execution';
 /**
  * Performs successful execution.
  *
- * @param result  Either execution result or a promise-like instance resolving to one.
+ * @param result - Either execution result or a promise-like instance resolving to one.
  *
  * @returns Successful execution instance.
  */

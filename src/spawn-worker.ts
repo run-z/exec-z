@@ -16,7 +16,7 @@ export interface SpawnZWorkerConfig {
   /**
    * Stops worker thread.
    *
-   * @param worker  The worker to stop.
+   * @param worker - The worker to stop.
    *
    * @default Invokes `Worker.terminate()`
    */
@@ -27,8 +27,8 @@ export interface SpawnZWorkerConfig {
 /**
  * Spawns worker thread.
  *
- * @param spawn  Starter function returning started worker instance.
- * @param config  Spawned worker thread configuration.
+ * @param spawn - Starter function returning started worker instance.
+ * @param config - Spawned worker thread configuration.
  *
  * @returns New worker thread execution instance stopping the thread on abort.
  */

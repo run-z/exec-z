@@ -12,8 +12,8 @@ import type { ZExecution } from './execution';
  *
  * @typeparam TFirstResult  First execution result type.
  * @typeparam TResult  Second execution result type.
- * @param first  Execution to complete first.
- * @param next  Next execution starter function accepting result of the first execution as its argument.
+ * @param first - Execution to complete first.
+ * @param next - Next execution starter function accepting result of the first execution as its argument.
  *
  * @returns New execution instance started when the first one completes.
  */
