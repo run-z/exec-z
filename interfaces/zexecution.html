@@ -7,6 +7,7 @@
 	<meta name="description" content="Documentation for Abortable Executions">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
+	<script async src="../assets/js/search.js" id="search-script"></script>
 </head>
 <body>
 <header>
@@ -51,13 +52,10 @@
 		<div class="container">
 			<ul class="tsd-breadcrumb">
 				<li>
-					<a href="../globals.html">Globals</a>
+					<a href="../modules.html">Abortable Executions</a>
 				</li>
 				<li>
-					<a href="../modules/@run-z_exec-z.html">@run-z/exec-z</a>
-				</li>
-				<li>
-					<a href="@run-z_exec-z.ZExecution.html">ZExecution</a>
+					<a href="zexecution.html">ZExecution</a>
 				</li>
 			</ul>
 			<h1>Interface ZExecution&lt;TResult&gt;</h1>
@@ -102,9 +100,9 @@
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="@run-z_exec-z.ZExecution.html#abort" class="tsd-kind-icon">abort</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="@run-z_exec-z.ZExecution.html#whenDone" class="tsd-kind-icon">when<wbr>Done</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="@run-z_exec-z.ZExecution.html#whenStarted" class="tsd-kind-icon">when<wbr>Started</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="zexecution.html#abort" class="tsd-kind-icon">abort</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="zexecution.html#whendone" class="tsd-kind-icon">when<wbr>Done</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="zexecution.html#whenstarted" class="tsd-kind-icon">when<wbr>Started</a></li>
 							</ul>
 						</section>
 					</div>
@@ -122,7 +120,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/run-z/exec-z/blob/ecc915f/src/execution.ts#L29">run-z/exec-z/src/execution.ts:29</a></li>
+									<li>Defined in <a href="https://github.com/run-z/exec-z/blob/8fa28b9/src/execution.ts#L29">run-z/exec-z/src/execution.ts:29</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -135,7 +133,7 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
-					<a name="whenDone" class="tsd-anchor"></a>
+					<a name="whendone" class="tsd-anchor"></a>
 					<h3>when<wbr>Done</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
 						<li class="tsd-signature tsd-kind-icon">when<wbr>Done<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TResult</span><span class="tsd-signature-symbol">&gt;</span></li>
@@ -144,7 +142,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/run-z/exec-z/blob/ecc915f/src/execution.ts#L24">run-z/exec-z/src/execution.ts:24</a></li>
+									<li>Defined in <a href="https://github.com/run-z/exec-z/blob/8fa28b9/src/execution.ts#L24">run-z/exec-z/src/execution.ts:24</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -158,7 +156,7 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
-					<a name="whenStarted" class="tsd-anchor"></a>
+					<a name="whenstarted" class="tsd-anchor"></a>
 					<h3>when<wbr>Started</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
 						<li class="tsd-signature tsd-kind-icon">when<wbr>Started<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
@@ -167,7 +165,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/run-z/exec-z/blob/ecc915f/src/execution.ts#L17">run-z/exec-z/src/execution.ts:17</a></li>
+									<li>Defined in <a href="https://github.com/run-z/exec-z/blob/8fa28b9/src/execution.ts#L17">run-z/exec-z/src/execution.ts:17</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -185,78 +183,75 @@
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 			<nav class="tsd-navigation primary">
 				<ul>
-					<li class="globals  ">
-						<a href="../globals.html"><em>Globals</em></a>
-					</li>
-					<li class="current tsd-kind-module">
-						<a href="../modules/@run-z_exec-z.html">@run-<wbr>z/exec-<wbr>z</a>
+					<li class=" ">
+						<a href="../modules.html">Exports</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-class tsd-parent-kind-module">
-						<a href="../classes/@run-z_exec-z.AbortedZExecutionError.html" class="tsd-kind-icon">AbortedZExecution<wbr>Error</a>
+					<li class=" tsd-kind-class">
+						<a href="../classes/abortedzexecutionerror.html" class="tsd-kind-icon">AbortedZExecution<wbr>Error</a>
 					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-module">
-						<a href="../classes/@run-z_exec-z.FailedZExecutionError.html" class="tsd-kind-icon">FailedZExecution<wbr>Error</a>
+					<li class=" tsd-kind-class">
+						<a href="../classes/failedzexecutionerror.html" class="tsd-kind-icon">FailedZExecution<wbr>Error</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="@run-z_exec-z.SpawnZConfig.html" class="tsd-kind-icon">SpawnZConfig</a>
+					<li class=" tsd-kind-interface">
+						<a href="spawnzconfig.html" class="tsd-kind-icon">SpawnZConfig</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="@run-z_exec-z.SpawnZWorkerConfig.html" class="tsd-kind-icon">SpawnZWorker<wbr>Config</a>
+					<li class=" tsd-kind-interface">
+						<a href="spawnzworkerconfig.html" class="tsd-kind-icon">SpawnZWorker<wbr>Config</a>
 					</li>
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
-						<a href="@run-z_exec-z.ZExecution.html" class="tsd-kind-icon">ZExecution</a>
+					<li class="current tsd-kind-interface tsd-has-type-parameter">
+						<a href="zexecution.html" class="tsd-kind-icon">ZExecution</a>
 						<ul>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="@run-z_exec-z.ZExecution.html#abort" class="tsd-kind-icon">abort</a>
+								<a href="zexecution.html#abort" class="tsd-kind-icon">abort</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="@run-z_exec-z.ZExecution.html#whenDone" class="tsd-kind-icon">when<wbr>Done</a>
+								<a href="zexecution.html#whendone" class="tsd-kind-icon">when<wbr>Done</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="@run-z_exec-z.ZExecution.html#whenStarted" class="tsd-kind-icon">when<wbr>Started</a>
+								<a href="zexecution.html#whenstarted" class="tsd-kind-icon">when<wbr>Started</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
-						<a href="@run-z_exec-z.ZExecutionInit.html" class="tsd-kind-icon">ZExecution<wbr>Init</a>
+					<li class=" tsd-kind-interface tsd-has-type-parameter">
+						<a href="zexecutioninit.html" class="tsd-kind-icon">ZExecution<wbr>Init</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-has-type-parameter">
-						<a href="../modules/@run-z_exec-z.html#ZExecutionStarter" class="tsd-kind-icon">ZExecution<wbr>Starter</a>
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
+						<a href="../modules.html#zexecutionstarter" class="tsd-kind-icon">ZExecution<wbr>Starter</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter">
-						<a href="../modules/@run-z_exec-z.html#execZ" class="tsd-kind-icon">execZ</a>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="../modules.html#execz" class="tsd-kind-icon">execZ</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter">
-						<a href="../modules/@run-z_exec-z.html#execZAfter" class="tsd-kind-icon">execZAfter</a>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="../modules.html#execzafter" class="tsd-kind-icon">execZAfter</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter">
-						<a href="../modules/@run-z_exec-z.html#execZAll" class="tsd-kind-icon">execZAll</a>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="../modules.html#execzall" class="tsd-kind-icon">execZAll</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/@run-z_exec-z.html#execZNoOp" class="tsd-kind-icon">execZNo<wbr>Op</a>
+					<li class=" tsd-kind-function">
+						<a href="../modules.html#execznoop" class="tsd-kind-icon">execZNo<wbr>Op</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter">
-						<a href="../modules/@run-z_exec-z.html#failZ" class="tsd-kind-icon">failZ</a>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="../modules.html#failz" class="tsd-kind-icon">failZ</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter">
-						<a href="../modules/@run-z_exec-z.html#poolZExecutions" class="tsd-kind-icon">poolZExecutions</a>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="../modules.html#poolzexecutions" class="tsd-kind-icon">poolZExecutions</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter">
-						<a href="../modules/@run-z_exec-z.html#resolveZ" class="tsd-kind-icon">resolveZ</a>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="../modules.html#resolvez" class="tsd-kind-icon">resolveZ</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/@run-z_exec-z.html#spawnZ" class="tsd-kind-icon">spawnZ</a>
+					<li class=" tsd-kind-function">
+						<a href="../modules.html#spawnz" class="tsd-kind-icon">spawnZ</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/@run-z_exec-z.html#spawnZWorker" class="tsd-kind-icon">spawnZWorker</a>
+					<li class=" tsd-kind-function">
+						<a href="../modules.html#spawnzworker" class="tsd-kind-icon">spawnZWorker</a>
 					</li>
 				</ul>
 			</nav>
@@ -268,17 +263,13 @@
 		<h2>Legend</h2>
 		<div class="tsd-legend-group">
 			<ul class="tsd-legend">
-				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
-				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
-				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
-				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
 				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
 			</ul>
 		</div>
 	</div>
