@@ -1,3 +1,7 @@
+/**
+ * @packageDocumentation
+ * @module @run-z/exec-z
+ */
 export * from './aborted-execution-error';
 export * from './exec';
 export * from './exec-after';
