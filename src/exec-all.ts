@@ -1,7 +1,3 @@
-/**
- * @packageDocumentation
- * @module @run-z/exec-z
- */
 import { asis, noop } from '@proc7ts/primitives';
 import { execZ } from './exec';
 import type { ZExecution } from './execution';

@@ -1,7 +1,3 @@
-/**
- * @packageDocumentation
- * @module @run-z/exec-z
- */
 import { noop } from '@proc7ts/primitives';
 import { AbortedZExecutionError } from './aborted-execution-error';
 import { execZ, ZExecutionStarter } from './exec';

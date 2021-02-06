@@ -1,7 +1,3 @@
-/**
- * @packageDocumentation
- * @module @run-z/exec-z
- */
 import { lazyValue, noop } from '@proc7ts/primitives';
 import type { ChildProcess } from 'child_process';
 import { AbortedZExecutionError } from './aborted-execution-error';

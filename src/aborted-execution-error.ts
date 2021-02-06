@@ -1,9 +1,4 @@
 /**
- * @packageDocumentation
- * @module @run-z/exec-z
- */
-
-/**
  * Error raised when execution aborted for some predictable reason.
  *
  * E.g. when {@link ZExecution.abort} method is called.

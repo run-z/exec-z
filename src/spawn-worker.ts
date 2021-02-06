@@ -1,7 +1,3 @@
-/**
- * @packageDocumentation
- * @module @run-z/exec-z
- */
 import { lazyValue, noop } from '@proc7ts/primitives';
 import type { Worker } from 'worker_threads';
 import { AbortedZExecutionError } from './aborted-execution-error';

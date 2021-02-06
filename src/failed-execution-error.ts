@@ -1,9 +1,4 @@
 /**
- * @packageDocumentation
- * @module @run-z/exec-z
- */
-
-/**
  * Error raised when execution failed.
  */
 export class FailedZExecutionError extends Error {

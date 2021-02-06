@@ -1,6 +1,6 @@
 /**
  * @packageDocumentation
- * @module @run-z/exec-z
+ * @module Module @run-z/exec-z
  */
 export * from './aborted-execution-error';
 export * from './exec';

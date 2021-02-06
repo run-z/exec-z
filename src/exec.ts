@@ -1,7 +1,3 @@
-/**
- * @packageDocumentation
- * @module @run-z/exec-z
- */
 import { asyncByRecipe, lazyValue, noop, valueProvider } from '@proc7ts/primitives';
 import { AbortedZExecutionError } from './aborted-execution-error';
 import type { ZExecution } from './execution';
