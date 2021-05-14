@@ -26,7 +26,7 @@
     "require": "./dist/exec-z.cjs"
   },
   "dependencies": {
-    "@proc7ts/primitives": "^2.0.0"
+    "@proc7ts/primitives": "^2.1.0"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^18.1.0",
