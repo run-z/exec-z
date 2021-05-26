@@ -1,3 +1,4 @@
+import { beforeEach, describe, expect, it } from '@jest/globals';
 import { asis } from '@proc7ts/primitives';
 import { Worker } from 'worker_threads';
 import { AbortedZExecutionError } from './aborted-execution-error';

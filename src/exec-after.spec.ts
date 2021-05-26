@@ -1,4 +1,6 @@
+import { beforeEach, describe, expect, it, jest } from '@jest/globals';
 import { asis } from '@proc7ts/primitives';
+import type { Mock } from 'jest-mock';
 import { AbortedZExecutionError } from './aborted-execution-error';
 import { execZ } from './exec';
 import { execZAfter } from './exec-after';
@@ -9,7 +11,7 @@ describe('execZAfter', () => {
   let first: ZExecution<string>;
   let done1: (value: string) => void;
   let reject1: (error: any) => void;
-  let abort1: jest.Mock;
+  let abort1: Mock<void>;
 
   beforeEach(() => {
     abort1 = jest.fn();
@@ -24,7 +26,7 @@ describe('execZAfter', () => {
 
   let done2: () => void;
   let reject2: (error: any) => void;
-  let abort2: jest.Mock;
+  let abort2: Mock<void>;
 
   let exec: ZExecution<number>;
   let success: boolean;

@@ -1,3 +1,4 @@
+import { beforeEach, describe, expect, it, jest } from '@jest/globals';
 import { asis } from '@proc7ts/primitives';
 import type { ChildProcess } from 'child_process';
 import { EventEmitter } from 'events';
@@ -7,13 +8,13 @@ import { spawnZ } from './spawn';
 
 describe('spawnZ', () => {
 
-  let childProcess: jest.Mocked<ChildProcess>;
+  let childProcess: ChildProcess;
   let events: EventEmitter;
 
   beforeEach(() => {
     events = new EventEmitter();
     childProcess = {
-      on: jest.fn((event, listener) => events.on(event, listener)),
+      on: jest.fn((event: string, listener: (...args: any[]) => void) => events.on(event, listener)),
       kill: jest.fn((signal = 'SIGTERM') => {
         events.emit('exit', undefined, signal);
       }),
@@ -105,7 +106,7 @@ describe('spawnZ', () => {
   });
   it('does not start the process on immediate abort', async () => {
 
-    const spawn = jest.fn();
+    const spawn = jest.fn<any, any[]>();
     const exec = spawnZ(spawn);
 
     exec.abort();

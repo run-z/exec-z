@@ -1,3 +1,4 @@
+import { describe, expect, it } from '@jest/globals';
 import { noop } from '@proc7ts/primitives';
 import { resolveZ } from './resolve';
 import { immediateResolution } from './spec';
