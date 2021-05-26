@@ -1,3 +1,4 @@
+import { describe, expect, it } from '@jest/globals';
 import { FailedZExecutionError } from './failed-execution-error';
 
 describe('FailedZExecutionError', () => {

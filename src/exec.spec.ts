@@ -1,4 +1,6 @@
+import { afterEach, beforeEach, describe, expect, it, jest } from '@jest/globals';
 import { asis, noop } from '@proc7ts/primitives';
+import type { Mock } from 'jest-mock';
 import { AbortedZExecutionError } from './aborted-execution-error';
 import { execZ } from './exec';
 import type { ZExecution } from './execution';
@@ -116,7 +118,7 @@ describe('execZ', () => {
 
   describe('abort', () => {
 
-    let abort: jest.Mock<any, any>;
+    let abort: Mock<any, any>;
     let exec: ZExecution;
 
     beforeEach(() => {
