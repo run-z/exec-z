@@ -1,6 +1,6 @@
 {
   "name": "@run-z/exec-z",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Abortable executions",
   "keywords": [
     "abortable",
