@@ -137,8 +137,8 @@ describe('poolZExecutions', () => {
     expect(aborted.has(2)).toBe(false);
 
     end2();
-    expect(await exec1.whenStarted().catch(asis)).toBeInstanceOf(AbortedZExecutionError);
-    expect(await exec1.whenDone().catch(asis)).toBeInstanceOf(AbortedZExecutionError);
+    expect(await exec1.whenStarted().catch(asis)).toEqual(new AbortedZExecutionError());
+    expect(await exec1.whenDone().catch(asis)).toEqual(new AbortedZExecutionError());
     await exec2.whenDone();
     expect(finished.has(1)).toBe(false);
     expect(finished.get(2)).toBeNull();
@@ -177,7 +177,7 @@ describe('poolZExecutions', () => {
     const exec2 = pool(start2);
 
     exec1.abort();
-    expect(await exec1.whenStarted().catch(asis)).toBeInstanceOf(AbortedZExecutionError);
+    expect(await exec1.whenStarted().catch(asis)).toEqual(new AbortedZExecutionError());
     await exec2.whenStarted();
 
     expect(started.has(1)).toBe(false);
@@ -186,7 +186,7 @@ describe('poolZExecutions', () => {
     expect(aborted.has(2)).toBe(false);
 
     end2();
-    expect(await exec1.whenDone().catch(asis)).toBeInstanceOf(AbortedZExecutionError);
+    expect(await exec1.whenDone().catch(asis)).toEqual(new AbortedZExecutionError());
     await exec2.whenDone();
     expect(finished.has(1)).toBe(false);
     expect(finished.get(2)).toBeNull();
@@ -211,9 +211,9 @@ describe('poolZExecutions', () => {
     expect(aborted.has(2)).toBe(false);
 
     end2();
-    expect(await exec1.whenDone().catch(asis)).toBeInstanceOf(AbortedZExecutionError);
+    expect(await exec1.whenDone().catch(asis)).toEqual(new AbortedZExecutionError(1));
     await exec2.whenDone();
-    expect(finished.get(1)).toBeInstanceOf(AbortedZExecutionError);
+    expect(finished.get(1)).toEqual(new AbortedZExecutionError(1));
     expect(finished.get(2)).toBeNull();
   });
 

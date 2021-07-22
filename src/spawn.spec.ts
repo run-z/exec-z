@@ -37,10 +37,7 @@ describe('spawnZ', () => {
     await exec.whenStarted();
     events.emit('exit', 13);
 
-    const error = await exec.whenDone().catch(asis);
-
-    expect(error).toBeInstanceOf(FailedZExecutionError);
-    expect(error.failure).toBe(13);
+    expect(await exec.whenDone().catch(asis)).toEqual(new FailedZExecutionError(13));
   });
   it('fails when process terminates by signal', async () => {
 
@@ -49,10 +46,7 @@ describe('spawnZ', () => {
     await exec.whenStarted();
     events.emit('exit', null, 'SIGKILL');
 
-    const error = await exec.whenDone().catch(asis);
-
-    expect(error).toBeInstanceOf(AbortedZExecutionError);
-    expect(error.abortReason).toBe('SIGKILL');
+    expect(await exec.whenDone().catch(asis)).toEqual(new AbortedZExecutionError('SIGKILL'));
   });
   it('fails when process terminates by large exit code', async () => {
 
@@ -61,10 +55,7 @@ describe('spawnZ', () => {
     await exec.whenStarted();
     events.emit('exit', 137);
 
-    const error = await exec.whenDone().catch(asis);
-
-    expect(error).toBeInstanceOf(AbortedZExecutionError);
-    expect(error.abortReason).toBe(137);
+    expect(await exec.whenDone().catch(asis)).toEqual(new AbortedZExecutionError(137));
   });
   it('kills the process on abort', async () => {
 
@@ -73,10 +64,7 @@ describe('spawnZ', () => {
     await exec.whenStarted();
     exec.abort();
 
-    const error = await exec.whenDone().catch(asis);
-
-    expect(error).toBeInstanceOf(AbortedZExecutionError);
-    expect(error.abortReason).toBe('SIGTERM');
+    expect(await exec.whenDone().catch(asis)).toEqual(new AbortedZExecutionError('SIGTERM'));
   });
   it('kills the process with custom signal on abort', async () => {
 
@@ -85,10 +73,7 @@ describe('spawnZ', () => {
     await exec.whenStarted();
     exec.abort();
 
-    const error = await exec.whenDone().catch(asis);
-
-    expect(error).toBeInstanceOf(AbortedZExecutionError);
-    expect(error.abortReason).toBe('SIGKILL');
+    expect(await exec.whenDone().catch(asis)).toEqual(new AbortedZExecutionError('SIGKILL'));
   });
   it('kills the process by custom method on abort', async () => {
 
@@ -98,10 +83,7 @@ describe('spawnZ', () => {
     await exec.whenStarted();
     exec.abort();
 
-    const error = await exec.whenDone().catch(asis);
-
-    expect(error).toBeInstanceOf(AbortedZExecutionError);
-    expect(error.abortReason).toBe('SIGUSR1');
+    expect(await exec.whenDone().catch(asis)).toEqual(new AbortedZExecutionError('SIGUSR1'));
     expect(kill).toHaveBeenCalledWith(childProcess);
   });
   it('does not start the process on immediate abort', async () => {
@@ -110,8 +92,8 @@ describe('spawnZ', () => {
     const exec = spawnZ(spawn);
 
     exec.abort();
-    expect(await exec.whenStarted().catch(asis)).toBeInstanceOf(AbortedZExecutionError);
-    expect(await exec.whenDone().catch(asis)).toBeInstanceOf(AbortedZExecutionError);
+    expect(await exec.whenStarted().catch(asis)).toEqual(new AbortedZExecutionError());
+    expect(await exec.whenDone().catch(asis)).toEqual(new AbortedZExecutionError());
     expect(spawn).not.toHaveBeenCalled();
   });
 });

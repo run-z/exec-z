@@ -19,15 +19,12 @@ describe('spawnZWorker', () => {
   });
   it('is terminated on abort', async () => {
 
-    const exec = start('stale.js');
+    const exec = start('stale.mjs');
 
     await exec.whenStarted();
     exec.abort();
 
-    const error = await exec.whenDone().catch(asis);
-
-    expect(error).toBeInstanceOf(AbortedZExecutionError);
-    expect(error.abortReason).toBe(1);
+    expect(await exec.whenDone().catch(asis)).toEqual(new AbortedZExecutionError(1));
   });
   it('is not started when aborted immediately', async () => {
 
@@ -35,10 +32,7 @@ describe('spawnZWorker', () => {
 
     exec.abort();
 
-    const error = await exec.whenDone().catch(asis);
-
-    expect(error).toBeInstanceOf(AbortedZExecutionError);
-    expect(error.abortReason).toBeUndefined();
+    expect(await exec.whenDone().catch(asis)).toEqual(new AbortedZExecutionError());
     expect(out).toBe('');
   });
   it('is stopped by custom method', async () => {
@@ -57,10 +51,7 @@ describe('spawnZWorker', () => {
     await exec.whenStarted();
     exec.abort();
 
-    const error = await exec.whenDone().catch(asis);
-
-    expect(error).toBeInstanceOf(AbortedZExecutionError);
-    expect(error.abortReason).toBe(1);
+    expect(await exec.whenDone().catch(asis)).toEqual(new AbortedZExecutionError(1));
   });
   it('is failed on thread execution error', async () => {
 
@@ -69,7 +60,7 @@ describe('spawnZWorker', () => {
     await exec.whenStarted();
     const error = await exec.whenDone().catch(asis);
 
-    expect(error.constructor.name).toBe('TypeError');
+    expect(error.constructor.name).toEqual('TypeError');
     expect(error.message).toBe('FAILED');
     expect(out).toContain('FAIL');
   });

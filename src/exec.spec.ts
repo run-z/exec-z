@@ -98,7 +98,7 @@ describe('execZ', () => {
       const whenStarted = exec.whenStarted();
 
       exec.abort();
-      expect(await whenStarted.catch(asis)).toBeInstanceOf(AbortedZExecutionError);
+      expect(await whenStarted.catch(asis)).toEqual(new AbortedZExecutionError());
     });
     it('is called after abort', async () => {
 
@@ -112,7 +112,7 @@ describe('execZ', () => {
       });
 
       exec.abort();
-      expect(await exec.whenStarted().catch(asis)).toBeInstanceOf(AbortedZExecutionError);
+      expect(await exec.whenStarted().catch(asis)).toEqual(new AbortedZExecutionError());
     });
   });
 

@@ -91,7 +91,7 @@ describe('execZAfter', () => {
     it('aborts only first execution before the second constructed', async () => {
       exec.abort();
       done1('test');
-      expect(await exec.whenDone().catch(asis)).toBeInstanceOf(AbortedZExecutionError);
+      expect(await exec.whenDone().catch(asis)).toEqual(new AbortedZExecutionError());
 
       expect(abort1).toHaveBeenCalledTimes(1);
       expect(abort2).not.toHaveBeenCalled();
