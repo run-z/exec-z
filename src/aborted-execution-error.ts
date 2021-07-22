@@ -15,13 +15,13 @@ export class AbortedZExecutionError extends Error {
    */
   constructor(
       readonly abortReason?: any,
-      message = String(abortReason ?? 'Execution aborted'),
+      message = 'Execution aborted',
   ) {
-    super(message);
+    super(abortReason !== undefined ? `${message}. ${abortReason}` : message);
   }
 
-  toString(): string {
-    return `Aborted: ${this.message}`;
+  get name(): string {
+    return 'Aborted';
   }
 
 }

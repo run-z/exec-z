@@ -11,13 +11,13 @@ export class FailedZExecutionError extends Error {
    */
   constructor(
       readonly failure?: any,
-      message = String(failure ?? 'Execution failed'),
+      message = 'Execution failed',
   ) {
-    super(message);
+    super(failure !== undefined ? `${message}. ${failure}` : message);
   }
 
-  toString(): string {
-    return `Failed: ${this.message}`;
+  get name(): string {
+    return 'Failed';
   }
 
 }
