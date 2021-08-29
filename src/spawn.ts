@@ -15,7 +15,7 @@ export interface SpawnZConfig {
    *
    * @default `SIGTERM`
    */
-  readonly kill?: NodeJS.Signals | number | ((process: ChildProcess) => void);
+  readonly kill?: NodeJS.Signals | number | ((this: this, process: ChildProcess) => void) | undefined;
 
 }
 

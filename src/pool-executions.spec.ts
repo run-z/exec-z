@@ -222,7 +222,7 @@ describe('poolZExecutions', () => {
       whenStarted: () => Promise<void> = () => Promise.resolve(),
   ): [start: ZExecutionStarter, end: (error?: any) => void] {
 
-    let end!: (error?: any) => void;
+    let end!: (error?: unknown) => void;
     const whenEnd = new Promise<void>((resolve, reject) => {
       end = error => {
         if (error != null) {
