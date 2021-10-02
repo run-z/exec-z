@@ -27,6 +27,7 @@ export function poolZExecutions<TResult>(
     if (maxRunning > 0) {
       // Reduce the number of simultaneous executions and execute immediately
       --maxRunning;
+
       return Promise.resolve();
     }
 

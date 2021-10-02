@@ -113,11 +113,13 @@ export function execZ<TResult>(
   const whenDone: Promise<TResult> = asyncByRecipe(starter).then(
       init => {
         initialize(init);
+
         return Promise.resolve(init.whenDone()).finally(done);
       },
   ).catch(
       error => {
         dontStart(error);
+
         return Promise.reject(error);
       },
   );

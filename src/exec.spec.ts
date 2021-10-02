@@ -19,6 +19,7 @@ describe('execZ', () => {
         const exec = execZ<void>(async () => {
           await Promise.resolve();
           resolve([exec]);
+
           return ({
             whenDone() {
               return whenDone;
@@ -47,6 +48,7 @@ describe('execZ', () => {
         const exec = execZ<void>(async () => {
           await Promise.resolve();
           resolve([exec]);
+
           return ({
             whenDone() {
               return whenDone;
@@ -88,6 +90,7 @@ describe('execZ', () => {
 
       const exec = execZ(async () => {
         await Promise.resolve();
+
         return {
           whenDone() {
             return Promise.resolve();
@@ -104,6 +107,7 @@ describe('execZ', () => {
 
       const exec = execZ(async () => {
         await Promise.resolve();
+
         return {
           whenDone() {
             return Promise.resolve();
@@ -148,6 +152,7 @@ describe('execZ', () => {
     it('is called at most once when started', async () => {
 
       let done!: () => void;
+
       exec = execZ(() => ({
         whenDone() {
           return new Promise(resolve => done = resolve);
@@ -169,6 +174,7 @@ describe('execZ', () => {
     it('is not aborted when started without abort method', async () => {
 
       let done!: () => void;
+
       exec = execZ(() => ({
         whenDone() {
           return new Promise(resolve => done = resolve);

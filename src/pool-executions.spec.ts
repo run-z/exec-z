@@ -244,6 +244,7 @@ describe('poolZExecutions', () => {
               },
               error => {
                 finished.set(id, error);
+
                 return Promise.reject(error);
               },
           );

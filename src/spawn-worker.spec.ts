@@ -58,6 +58,7 @@ describe('spawnZWorker', () => {
     const exec = start('fail.mjs');
 
     await exec.whenStarted();
+
     const error = await exec.whenDone().catch(asis);
 
     expect(error.constructor.name).toEqual('TypeError');

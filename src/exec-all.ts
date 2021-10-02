@@ -407,6 +407,7 @@ export function execZAll<TResult, TCombination>(
             toAbort,
             exec => exec.whenDone().catch(error => {
               fail(exec);
+
               return Promise.reject(error);
             }),
         )).then(combine);
