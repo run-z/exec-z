@@ -61,7 +61,7 @@ describe('spawnZWorker', () => {
 
     const error = await exec.whenDone().catch(asis);
 
-    expect(error.constructor.name).toEqual('TypeError');
+    expect(error.constructor.name).toBe('TypeError');
     expect(error.message).toBe('FAILED');
     expect(out).toContain('FAIL');
   });

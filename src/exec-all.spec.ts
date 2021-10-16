@@ -84,7 +84,7 @@ describe('execZAll', () => {
 
     done1('1');
     done2('2');
-    expect(await promise).toEqual('12');
+    expect(await promise).toBe('12');
     expect(isDone1).toBe(true);
     expect(isDone2).toBe(true);
   });
