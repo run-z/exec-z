@@ -1,5 +1,5 @@
 import { lazyValue, noop } from '@proc7ts/primitives';
-import type { ChildProcess } from 'child_process';
+import type { ChildProcess } from 'node:child_process';
 import { AbortedZExecutionError } from './aborted-execution-error';
 import { execZ } from './exec';
 import type { ZExecution } from './execution';

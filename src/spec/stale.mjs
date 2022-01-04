@@ -1,4 +1,4 @@
-import worker_threads from 'worker_threads';
+import worker_threads from 'node:worker_threads';
 
 worker_threads.parentPort.on('message', ({ stop }) => {
   if (stop != null) {

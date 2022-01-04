@@ -1,5 +1,5 @@
 import { noop } from '@proc7ts/primitives';
-import * as os from 'os';
+import * as os from 'node:os';
 import { AbortedZExecutionError } from './aborted-execution-error';
 import type { ZExecutionStarter } from './exec';
 import { execZ } from './exec';
