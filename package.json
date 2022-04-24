@@ -27,6 +27,7 @@
   "devDependencies": {
     "@jest/globals": "^27.5.1",
     "@run-z/eslint-config": "^3.0.0",
+    "@run-z/prettier-config": "^2.0.0",
     "@run-z/rollup-helpers": "^2.0.0",
     "@types/node": "^14.18.13",
     "@typescript-eslint/eslint-plugin": "^5.20.0",
