@@ -11,7 +11,7 @@ describe('execZAfter', () => {
   let first: ZExecution<string>;
   let done1: (value: string) => void;
   let reject1: (error: any) => void;
-  let abort1: Mock<void>;
+  let abort1: Mock<() => void>;
 
   beforeEach(() => {
     abort1 = jest.fn();
@@ -26,7 +26,7 @@ describe('execZAfter', () => {
 
   let done2: () => void;
   let reject2: (error: any) => void;
-  let abort2: Mock<void>;
+  let abort2: Mock<() => void>;
 
   let exec: ZExecution<number>;
   let success: boolean;

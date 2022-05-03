@@ -12,13 +12,13 @@ describe('execZAll', () => {
   let whenDone1: Promise<string>;
   let exec1: ZExecution<string>;
   let isDone1: boolean;
-  let abort1: Mock<void>;
+  let abort1: Mock<() => void>;
 
   let done2: (value: string) => void;
   let whenDone2: Promise<string>;
   let exec2: ZExecution<string>;
   let isDone2: boolean;
-  let abort2: Mock<void>;
+  let abort2: Mock<() => void>;
 
   beforeEach(() => {
     whenDone1 = new Promise((resolve, reject) => {

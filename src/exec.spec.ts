@@ -122,7 +122,7 @@ describe('execZ', () => {
 
   describe('abort', () => {
 
-    let abort: Mock<any, any>;
+    let abort: Mock<() => void>;
     let exec: ZExecution;
 
     beforeEach(() => {

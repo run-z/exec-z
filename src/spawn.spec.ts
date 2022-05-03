@@ -88,7 +88,7 @@ describe('spawnZ', () => {
   });
   it('does not start the process on immediate abort', async () => {
 
-    const spawn = jest.fn<any, any[]>();
+    const spawn = jest.fn<() => ChildProcess>();
     const exec = spawnZ(spawn);
 
     exec.abort();
