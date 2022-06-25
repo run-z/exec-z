@@ -9,7 +9,7 @@ import type { ZExecution } from './execution';
  *
  * @returns Failed execution instance.
  */
-export function failZ<TResult>(reason: any): ZExecution<TResult> {
+export function failZ<TResult>(reason: unknown): ZExecution<TResult> {
 
   const rejection = Promise.reject<TResult>(reason);
 

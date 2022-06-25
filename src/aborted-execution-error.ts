@@ -14,7 +14,7 @@ export class AbortedZExecutionError extends Error {
    * @param message - Error message.
    */
   constructor(
-      readonly abortReason?: any,
+      readonly abortReason?: unknown,
       message = 'Execution aborted',
   ) {
     super(abortReason !== undefined ? `${message}. ${abortReason}` : message);

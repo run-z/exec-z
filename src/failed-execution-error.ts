@@ -10,7 +10,7 @@ export class FailedZExecutionError extends Error {
    * @param message - Error message.
    */
   constructor(
-      readonly failure?: any,
+      readonly failure?: unknown,
       message = 'Execution failed',
   ) {
     super(failure !== undefined ? `${message}. ${failure}` : message);
