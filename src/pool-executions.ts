@@ -54,7 +54,7 @@ export function poolZExecutions<TResult>(
   return starter => execZ(() => {
 
     let start: () => void = noop;
-    let dontStart: (error: any) => void = noop;
+    let dontStart: (error: unknown) => void = noop;
     const whenStarted = (): Promise<void> => new Promise<void>(((resolve, reject) => {
       start = resolve;
       dontStart = reject;

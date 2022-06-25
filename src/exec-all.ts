@@ -3,7 +3,7 @@ import { execZ } from './exec';
 import type { ZExecution } from './execution';
 
 /**
- * Performs execution that succeeds when all of the given executions do, or fails when either of them fail.
+ * Performs execution that succeeds when all the given executions do, or fails when either of them fail.
  *
  * Aborts other executions once one of them fail.
  *
@@ -21,7 +21,7 @@ export function execZAll<T1, T2>(
 ): ZExecution<[T1, T2]>;
 
 /**
- * Performs execution that succeeds when all of the given executions do, or fails when either of them fail.
+ * Performs execution that succeeds when all the given executions do, or fails when either of them fail.
  *
  * Aborts other executions once one of them fail.
  *
@@ -359,7 +359,7 @@ export function execZAll<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13,
 export function execZAll<TResult>(executions: Iterable<ZExecution<TResult>>): ZExecution<TResult[]>;
 
 /**
- * Performs execution that succeeds when all of the given executions do, or fails when either of them fail, then
+ * Performs execution that succeeds when all the given executions do, or fails when either of them fail, then
  * combines the results.
  *
  * Aborts other executions once one of them fail.

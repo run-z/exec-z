@@ -220,7 +220,7 @@ describe('poolZExecutions', () => {
   function testJob(
       id: number,
       whenStarted: () => Promise<void> = () => Promise.resolve(),
-  ): [start: ZExecutionStarter, end: (error?: any) => void] {
+  ): [start: ZExecutionStarter, end: (error?: unknown) => void] {
 
     let end!: (error?: unknown) => void;
     const whenEnd = new Promise<void>((resolve, reject) => {

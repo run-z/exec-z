@@ -14,7 +14,7 @@ describe('spawnZ', () => {
   beforeEach(() => {
     events = new EventEmitter();
     childProcess = {
-      on: jest.fn((event: string, listener: (...args: any[]) => void) => events.on(event, listener)),
+      on: jest.fn((event: string, listener: (...args: unknown[]) => void) => events.on(event, listener)),
       kill: jest.fn((signal = 'SIGTERM') => {
         events.emit('exit', undefined, signal);
       }),

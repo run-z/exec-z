@@ -40,7 +40,7 @@ export function spawnZWorker(
 
     let abort: () => void;
     let start: () => void;
-    let dontStart: (error: any) => void;
+    let dontStart: (error: unknown) => void;
 
     const whenStarted = new Promise<void>((resolve, reject) => {
       start = resolve;

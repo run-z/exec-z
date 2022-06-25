@@ -8,7 +8,7 @@ import type { ZExecution } from './execution';
 describe('execZAll', () => {
 
   let done1: (value: string) => void;
-  let reject1: (error: any) => void;
+  let reject1: (error: unknown) => void;
   let whenDone1: Promise<string>;
   let exec1: ZExecution<string>;
   let isDone1: boolean;

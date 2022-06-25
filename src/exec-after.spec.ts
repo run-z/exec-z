@@ -10,7 +10,7 @@ describe('execZAfter', () => {
 
   let first: ZExecution<string>;
   let done1: (value: string) => void;
-  let reject1: (error: any) => void;
+  let reject1: (error: unknown) => void;
   let abort1: Mock<() => void>;
 
   beforeEach(() => {
@@ -25,12 +25,12 @@ describe('execZAfter', () => {
   });
 
   let done2: () => void;
-  let reject2: (error: any) => void;
+  let reject2: (error: unknown) => void;
   let abort2: Mock<() => void>;
 
   let exec: ZExecution<number>;
   let success: boolean;
-  let error: any;
+  let error: unknown;
 
   beforeEach(() => {
     success = false;

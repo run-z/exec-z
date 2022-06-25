@@ -66,7 +66,7 @@ export function execZ<TResult>(
 ): ZExecution<TResult> {
 
   let start: () => void;
-  let dontStart: (error: any) => void;
+  let dontStart: (error: unknown) => void;
   let whenStarted = (): Promise<void> => {
 
     const result = new Promise<void>((resolve, reject) => {
@@ -82,7 +82,7 @@ export function execZ<TResult>(
   start = () => {
     whenStarted = valueProvider(Promise.resolve());
   };
-  dontStart = (error: any): void => {
+  dontStart = (error: unknown): void => {
     whenStarted = lazyValue(() => Promise.reject(error));
   };
 
