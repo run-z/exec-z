@@ -14,10 +14,7 @@ import type { ZExecution } from './execution';
  * @returns New execution instance.
  */
 export function execZAll<T1, T2>(
-    executions: readonly [
-      ZExecution<T1>,
-      ZExecution<T2>,
-    ],
+  executions: readonly [ZExecution<T1>, ZExecution<T2>],
 ): ZExecution<[T1, T2]>;
 
 /**
@@ -34,316 +31,300 @@ export function execZAll<T1, T2>(
  * @returns New execution instance.
  */
 export function execZAll<T1, T2, T>(
-    executions: readonly [
-      ZExecution<T1>,
-      ZExecution<T2>,
-    ],
-    combine: (this: void, results: [T1, T2]) => T | PromiseLike<T>,
+  executions: readonly [ZExecution<T1>, ZExecution<T2>],
+  combine: (this: void, results: [T1, T2]) => T | PromiseLike<T>,
 ): ZExecution<T>;
 
 export function execZAll<T1, T2, T3>(
-    executions: readonly [
-      ZExecution<T1>,
-      ZExecution<T2>,
-      ZExecution<T3>,
-    ],
+  executions: readonly [ZExecution<T1>, ZExecution<T2>, ZExecution<T3>],
 ): ZExecution<[T1, T2, T3]>;
 
 export function execZAll<T1, T2, T3, T>(
-    executions: readonly [
-      ZExecution<T1>,
-      ZExecution<T2>,
-      ZExecution<T3>,
-    ],
-    combine: (this: void, results: [T1, T2, T3]) => T | PromiseLike<T>,
+  executions: readonly [ZExecution<T1>, ZExecution<T2>, ZExecution<T3>],
+  combine: (this: void, results: [T1, T2, T3]) => T | PromiseLike<T>,
 ): ZExecution<T>;
 
 export function execZAll<T1, T2, T3>(
-    executions: readonly [
-      ZExecution<T1>,
-      ZExecution<T2>,
-      ZExecution<T3>,
-    ],
+  executions: readonly [ZExecution<T1>, ZExecution<T2>, ZExecution<T3>],
 ): ZExecution<[T1, T2, T3]>;
 
 export function execZAll<T1, T2, T3, T4>(
-    executions: readonly [
-      ZExecution<T1>,
-      ZExecution<T2>,
-      ZExecution<T3>,
-      ZExecution<T4>,
-    ],
+  executions: readonly [ZExecution<T1>, ZExecution<T2>, ZExecution<T3>, ZExecution<T4>],
 ): ZExecution<[T1, T2, T3, T4]>;
 
 export function execZAll<T1, T2, T3, T4, T>(
-    executions: readonly [
-      ZExecution<T1>,
-      ZExecution<T2>,
-      ZExecution<T3>,
-      ZExecution<T4>,
-    ],
-    combine: (this: void, results: [T1, T2, T3, T4]) => T | PromiseLike<T>,
+  executions: readonly [ZExecution<T1>, ZExecution<T2>, ZExecution<T3>, ZExecution<T4>],
+  combine: (this: void, results: [T1, T2, T3, T4]) => T | PromiseLike<T>,
 ): ZExecution<T>;
 
 export function execZAll<T1, T2, T3, T4, T5>(
-    executions: readonly [
-      ZExecution<T1>,
-      ZExecution<T2>,
-      ZExecution<T3>,
-      ZExecution<T4>,
-      ZExecution<T5>,
-    ],
+  executions: readonly [
+    ZExecution<T1>,
+    ZExecution<T2>,
+    ZExecution<T3>,
+    ZExecution<T4>,
+    ZExecution<T5>,
+  ],
 ): ZExecution<[T1, T2, T3, T4, T5]>;
 
 export function execZAll<T1, T2, T3, T4, T5, T>(
-    executions: readonly [
-      ZExecution<T1>,
-      ZExecution<T2>,
-      ZExecution<T3>,
-      ZExecution<T4>,
-      ZExecution<T5>,
-    ],
-    combine: (this: void, results: [T1, T2, T3, T4, T5]) => T | PromiseLike<T>,
+  executions: readonly [
+    ZExecution<T1>,
+    ZExecution<T2>,
+    ZExecution<T3>,
+    ZExecution<T4>,
+    ZExecution<T5>,
+  ],
+  combine: (this: void, results: [T1, T2, T3, T4, T5]) => T | PromiseLike<T>,
 ): ZExecution<[T1, T2, T3, T4, T5, T]>;
 
 export function execZAll<T1, T2, T3, T4, T5, T6>(
-    executions: readonly [
-      ZExecution<T1>,
-      ZExecution<T2>,
-      ZExecution<T3>,
-      ZExecution<T4>,
-      ZExecution<T5>,
-      ZExecution<T6>,
-    ],
+  executions: readonly [
+    ZExecution<T1>,
+    ZExecution<T2>,
+    ZExecution<T3>,
+    ZExecution<T4>,
+    ZExecution<T5>,
+    ZExecution<T6>,
+  ],
 ): ZExecution<[T1, T2, T3, T4, T5, T6]>;
 
 export function execZAll<T1, T2, T3, T4, T5, T6, T>(
-    executions: readonly [
-      ZExecution<T1>,
-      ZExecution<T2>,
-      ZExecution<T3>,
-      ZExecution<T4>,
-      ZExecution<T5>,
-      ZExecution<T6>,
-    ],
-    combine: (this: void, results: [T1, T2, T3, T4, T5, T6]) => T | PromiseLike<T>,
+  executions: readonly [
+    ZExecution<T1>,
+    ZExecution<T2>,
+    ZExecution<T3>,
+    ZExecution<T4>,
+    ZExecution<T5>,
+    ZExecution<T6>,
+  ],
+  combine: (this: void, results: [T1, T2, T3, T4, T5, T6]) => T | PromiseLike<T>,
 ): ZExecution<T>;
 
 export function execZAll<T1, T2, T3, T4, T5, T6, T7>(
-    executions: readonly [
-      ZExecution<T1>,
-      ZExecution<T2>,
-      ZExecution<T3>,
-      ZExecution<T4>,
-      ZExecution<T5>,
-      ZExecution<T6>,
-      ZExecution<T7>,
-    ],
+  executions: readonly [
+    ZExecution<T1>,
+    ZExecution<T2>,
+    ZExecution<T3>,
+    ZExecution<T4>,
+    ZExecution<T5>,
+    ZExecution<T6>,
+    ZExecution<T7>,
+  ],
 ): ZExecution<[T1, T2, T3, T4, T5, T6, T7]>;
 
 export function execZAll<T1, T2, T3, T4, T5, T6, T7, T>(
-    executions: readonly [
-      ZExecution<T1>,
-      ZExecution<T2>,
-      ZExecution<T3>,
-      ZExecution<T4>,
-      ZExecution<T5>,
-      ZExecution<T6>,
-      ZExecution<T7>,
-    ],
-    combine: (this: void, results: [T1, T2, T3, T4, T5, T6, T7]) => T | PromiseLike<T>,
+  executions: readonly [
+    ZExecution<T1>,
+    ZExecution<T2>,
+    ZExecution<T3>,
+    ZExecution<T4>,
+    ZExecution<T5>,
+    ZExecution<T6>,
+    ZExecution<T7>,
+  ],
+  combine: (this: void, results: [T1, T2, T3, T4, T5, T6, T7]) => T | PromiseLike<T>,
 ): ZExecution<T>;
 
 export function execZAll<T1, T2, T3, T4, T5, T6, T7, T8>(
-    executions: readonly [
-      ZExecution<T1>,
-      ZExecution<T2>,
-      ZExecution<T3>,
-      ZExecution<T4>,
-      ZExecution<T5>,
-      ZExecution<T6>,
-      ZExecution<T7>,
-      ZExecution<T8>,
-    ],
+  executions: readonly [
+    ZExecution<T1>,
+    ZExecution<T2>,
+    ZExecution<T3>,
+    ZExecution<T4>,
+    ZExecution<T5>,
+    ZExecution<T6>,
+    ZExecution<T7>,
+    ZExecution<T8>,
+  ],
 ): ZExecution<[T1, T2, T3, T4, T5, T6, T7, T8]>;
 
 export function execZAll<T1, T2, T3, T4, T5, T6, T7, T8, T>(
-    executions: readonly [
-      ZExecution<T1>,
-      ZExecution<T2>,
-      ZExecution<T3>,
-      ZExecution<T4>,
-      ZExecution<T5>,
-      ZExecution<T6>,
-      ZExecution<T7>,
-      ZExecution<T8>,
-    ],
-    combine: (this: void, results: [T1, T2, T3, T4, T5, T6, T7, T8]) => T | PromiseLike<T>,
+  executions: readonly [
+    ZExecution<T1>,
+    ZExecution<T2>,
+    ZExecution<T3>,
+    ZExecution<T4>,
+    ZExecution<T5>,
+    ZExecution<T6>,
+    ZExecution<T7>,
+    ZExecution<T8>,
+  ],
+  combine: (this: void, results: [T1, T2, T3, T4, T5, T6, T7, T8]) => T | PromiseLike<T>,
 ): ZExecution<T>;
 
 export function execZAll<T1, T2, T3, T4, T5, T6, T7, T8, T9>(
-    executions: readonly [
-      ZExecution<T1>,
-      ZExecution<T2>,
-      ZExecution<T3>,
-      ZExecution<T4>,
-      ZExecution<T5>,
-      ZExecution<T6>,
-      ZExecution<T7>,
-      ZExecution<T8>,
-      ZExecution<T9>,
-    ],
+  executions: readonly [
+    ZExecution<T1>,
+    ZExecution<T2>,
+    ZExecution<T3>,
+    ZExecution<T4>,
+    ZExecution<T5>,
+    ZExecution<T6>,
+    ZExecution<T7>,
+    ZExecution<T8>,
+    ZExecution<T9>,
+  ],
 ): ZExecution<[T1, T2, T3, T4, T5, T6, T7, T8, T9]>;
 
 export function execZAll<T1, T2, T3, T4, T5, T6, T7, T8, T9, T>(
-    executions: readonly [
-      ZExecution<T1>,
-      ZExecution<T2>,
-      ZExecution<T3>,
-      ZExecution<T4>,
-      ZExecution<T5>,
-      ZExecution<T6>,
-      ZExecution<T7>,
-      ZExecution<T8>,
-      ZExecution<T9>,
-    ],
-    combine: (this: void, results: [T1, T2, T3, T4, T5, T6, T7, T8, T9]) => T | PromiseLike<T>,
+  executions: readonly [
+    ZExecution<T1>,
+    ZExecution<T2>,
+    ZExecution<T3>,
+    ZExecution<T4>,
+    ZExecution<T5>,
+    ZExecution<T6>,
+    ZExecution<T7>,
+    ZExecution<T8>,
+    ZExecution<T9>,
+  ],
+  combine: (this: void, results: [T1, T2, T3, T4, T5, T6, T7, T8, T9]) => T | PromiseLike<T>,
 ): ZExecution<T>;
 
 export function execZAll<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
-    executions: readonly [
-      ZExecution<T1>,
-      ZExecution<T2>,
-      ZExecution<T3>,
-      ZExecution<T4>,
-      ZExecution<T5>,
-      ZExecution<T6>,
-      ZExecution<T7>,
-      ZExecution<T8>,
-      ZExecution<T9>,
-      ZExecution<T10>,
-    ],
+  executions: readonly [
+    ZExecution<T1>,
+    ZExecution<T2>,
+    ZExecution<T3>,
+    ZExecution<T4>,
+    ZExecution<T5>,
+    ZExecution<T6>,
+    ZExecution<T7>,
+    ZExecution<T8>,
+    ZExecution<T9>,
+    ZExecution<T10>,
+  ],
 ): ZExecution<[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10]>;
 
 export function execZAll<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T>(
-    executions: readonly [
-      ZExecution<T1>,
-      ZExecution<T2>,
-      ZExecution<T3>,
-      ZExecution<T4>,
-      ZExecution<T5>,
-      ZExecution<T6>,
-      ZExecution<T7>,
-      ZExecution<T8>,
-      ZExecution<T9>,
-      ZExecution<T10>,
-    ],
-    combine: (this: void, results: [T1, T2, T3, T4, T5, T6, T7, T8, T9, T10]) => T | PromiseLike<T>,
+  executions: readonly [
+    ZExecution<T1>,
+    ZExecution<T2>,
+    ZExecution<T3>,
+    ZExecution<T4>,
+    ZExecution<T5>,
+    ZExecution<T6>,
+    ZExecution<T7>,
+    ZExecution<T8>,
+    ZExecution<T9>,
+    ZExecution<T10>,
+  ],
+  combine: (this: void, results: [T1, T2, T3, T4, T5, T6, T7, T8, T9, T10]) => T | PromiseLike<T>,
 ): ZExecution<T>;
 
 export function execZAll<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(
-    executions: readonly [
-      ZExecution<T1>,
-      ZExecution<T2>,
-      ZExecution<T3>,
-      ZExecution<T4>,
-      ZExecution<T5>,
-      ZExecution<T6>,
-      ZExecution<T7>,
-      ZExecution<T8>,
-      ZExecution<T9>,
-      ZExecution<T10>,
-      ZExecution<T11>,
-    ],
+  executions: readonly [
+    ZExecution<T1>,
+    ZExecution<T2>,
+    ZExecution<T3>,
+    ZExecution<T4>,
+    ZExecution<T5>,
+    ZExecution<T6>,
+    ZExecution<T7>,
+    ZExecution<T8>,
+    ZExecution<T9>,
+    ZExecution<T10>,
+    ZExecution<T11>,
+  ],
 ): ZExecution<[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11]>;
 
 export function execZAll<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T>(
-    executions: readonly [
-      ZExecution<T1>,
-      ZExecution<T2>,
-      ZExecution<T3>,
-      ZExecution<T4>,
-      ZExecution<T5>,
-      ZExecution<T6>,
-      ZExecution<T7>,
-      ZExecution<T8>,
-      ZExecution<T9>,
-      ZExecution<T10>,
-      ZExecution<T11>,
-    ],
-    combine: (this: void, results: [T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11]) => T | PromiseLike<T>,
+  executions: readonly [
+    ZExecution<T1>,
+    ZExecution<T2>,
+    ZExecution<T3>,
+    ZExecution<T4>,
+    ZExecution<T5>,
+    ZExecution<T6>,
+    ZExecution<T7>,
+    ZExecution<T8>,
+    ZExecution<T9>,
+    ZExecution<T10>,
+    ZExecution<T11>,
+  ],
+  combine: (
+    this: void,
+    results: [T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11],
+  ) => T | PromiseLike<T>,
 ): ZExecution<T>;
 
 export function execZAll<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(
-    executions: readonly [
-      ZExecution<T1>,
-      ZExecution<T2>,
-      ZExecution<T3>,
-      ZExecution<T4>,
-      ZExecution<T5>,
-      ZExecution<T6>,
-      ZExecution<T7>,
-      ZExecution<T8>,
-      ZExecution<T9>,
-      ZExecution<T10>,
-      ZExecution<T11>,
-      ZExecution<T12>,
-    ],
+  executions: readonly [
+    ZExecution<T1>,
+    ZExecution<T2>,
+    ZExecution<T3>,
+    ZExecution<T4>,
+    ZExecution<T5>,
+    ZExecution<T6>,
+    ZExecution<T7>,
+    ZExecution<T8>,
+    ZExecution<T9>,
+    ZExecution<T10>,
+    ZExecution<T11>,
+    ZExecution<T12>,
+  ],
 ): ZExecution<[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12]>;
 
 export function execZAll<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T>(
-    executions: readonly [
-      ZExecution<T1>,
-      ZExecution<T2>,
-      ZExecution<T3>,
-      ZExecution<T4>,
-      ZExecution<T5>,
-      ZExecution<T6>,
-      ZExecution<T7>,
-      ZExecution<T8>,
-      ZExecution<T9>,
-      ZExecution<T10>,
-      ZExecution<T11>,
-      ZExecution<T12>,
-    ],
-    combine: (this: void, results: [T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12]) => T | PromiseLike<T>,
+  executions: readonly [
+    ZExecution<T1>,
+    ZExecution<T2>,
+    ZExecution<T3>,
+    ZExecution<T4>,
+    ZExecution<T5>,
+    ZExecution<T6>,
+    ZExecution<T7>,
+    ZExecution<T8>,
+    ZExecution<T9>,
+    ZExecution<T10>,
+    ZExecution<T11>,
+    ZExecution<T12>,
+  ],
+  combine: (
+    this: void,
+    results: [T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12],
+  ) => T | PromiseLike<T>,
 ): ZExecution<[T]>;
 
 export function execZAll<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(
-    executions: readonly [
-      ZExecution<T1>,
-      ZExecution<T2>,
-      ZExecution<T3>,
-      ZExecution<T4>,
-      ZExecution<T5>,
-      ZExecution<T6>,
-      ZExecution<T7>,
-      ZExecution<T8>,
-      ZExecution<T9>,
-      ZExecution<T10>,
-      ZExecution<T11>,
-      ZExecution<T12>,
-      ZExecution<T13>,
-    ],
+  executions: readonly [
+    ZExecution<T1>,
+    ZExecution<T2>,
+    ZExecution<T3>,
+    ZExecution<T4>,
+    ZExecution<T5>,
+    ZExecution<T6>,
+    ZExecution<T7>,
+    ZExecution<T8>,
+    ZExecution<T9>,
+    ZExecution<T10>,
+    ZExecution<T11>,
+    ZExecution<T12>,
+    ZExecution<T13>,
+  ],
 ): ZExecution<[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13]>;
 
 export function execZAll<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T>(
-    executions: readonly [
-      ZExecution<T1>,
-      ZExecution<T2>,
-      ZExecution<T3>,
-      ZExecution<T4>,
-      ZExecution<T5>,
-      ZExecution<T6>,
-      ZExecution<T7>,
-      ZExecution<T8>,
-      ZExecution<T9>,
-      ZExecution<T10>,
-      ZExecution<T11>,
-      ZExecution<T12>,
-      ZExecution<T13>,
-    ],
-    combine: (this: void, results: [T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13]) => T | PromiseLike<T>,
+  executions: readonly [
+    ZExecution<T1>,
+    ZExecution<T2>,
+    ZExecution<T3>,
+    ZExecution<T4>,
+    ZExecution<T5>,
+    ZExecution<T6>,
+    ZExecution<T7>,
+    ZExecution<T8>,
+    ZExecution<T9>,
+    ZExecution<T10>,
+    ZExecution<T11>,
+    ZExecution<T12>,
+    ZExecution<T13>,
+  ],
+  combine: (
+    this: void,
+    results: [T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13],
+  ) => T | PromiseLike<T>,
 ): ZExecution<T>;
 
 /**
@@ -372,16 +353,15 @@ export function execZAll<TResult>(executions: Iterable<ZExecution<TResult>>): ZE
  * @returns New execution instance.
  */
 export function execZAll<TResult, TCombination>(
-    executions: Iterable<ZExecution<TResult>>,
-    combine: (this: void, results: readonly TResult[]) => TCombination | PromiseLike<TCombination>,
+  executions: Iterable<ZExecution<TResult>>,
+  combine: (this: void, results: readonly TResult[]) => TCombination | PromiseLike<TCombination>,
 ): ZExecution<TCombination>;
 
 export function execZAll<TResult, TCombination>(
-    executions: Iterable<ZExecution<TResult>>,
-    combine: (results: any) => TCombination | PromiseLike<TCombination> = asis as () => TCombination,
+  executions: Iterable<ZExecution<TResult>>,
+  combine: (results: any) => TCombination | PromiseLike<TCombination> = asis as () => TCombination,
 ): ZExecution<TCombination> {
   return execZ(() => {
-
     const toAbort = new Set<ZExecution<TResult>>(executions);
     const abort = (): void => {
       for (const exec of toAbort) {
@@ -397,20 +377,16 @@ export function execZAll<TResult, TCombination>(
 
     return {
       whenStarted() {
-        return Promise.all(Array.from(
-            toAbort,
-            exec => exec.whenStarted(),
-        ));
+        return Promise.all(Array.from(toAbort, exec => exec.whenStarted()));
       },
       whenDone() {
-        return Promise.all(Array.from(
-            toAbort,
-            exec => exec.whenDone().catch(error => {
+        return Promise.all(
+          Array.from(toAbort, exec => exec.whenDone().catch(error => {
               fail(exec);
 
               return Promise.reject(error);
-            }),
-        )).then(combine);
+            })),
+        ).then(combine);
       },
       abort,
     };

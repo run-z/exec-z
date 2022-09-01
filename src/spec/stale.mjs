@@ -7,9 +7,6 @@ worker_threads.parentPort.on('message', ({ stop }) => {
 });
 
 // Prevent worker from stopping
-const id = setInterval(
-    () => {
-      clearInterval(id);
-    },
-    5000,
-);
+const id = setInterval(() => {
+  clearInterval(id);
+}, 5000);

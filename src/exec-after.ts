@@ -14,17 +14,14 @@ import type { ZExecution } from './execution';
  * @returns New execution instance started when the first one completes.
  */
 export function execZAfter<TFirstResult, TResult>(
-    first: ZExecution<TFirstResult>,
-    next: ZExecutionStarter<TResult, [TFirstResult]>,
+  first: ZExecution<TFirstResult>,
+  next: ZExecutionStarter<TResult, [TFirstResult]>,
 ): ZExecution<TResult> {
-
   const whenFirstDone = first.whenDone();
 
   return execZ(() => {
-
     let abort: () => void;
     let startNext = async (firstResult: TFirstResult): Promise<TResult> => {
-
       const exec = execZ(() => next(firstResult));
 
       abort = () => {

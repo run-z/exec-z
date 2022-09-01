@@ -5,7 +5,6 @@ import { execZ, ZExecutionStarter } from './exec';
 import { poolZExecutions } from './pool-executions';
 
 describe('poolZExecutions', () => {
-
   let started: Set<number>;
   let finished: Map<number, any>;
   let aborted: Set<number>;
@@ -21,7 +20,6 @@ describe('poolZExecutions', () => {
     expect(poolZExecutions(-1)).toBe(execZ);
   });
   it('executes immediately when pool limit allows', async () => {
-
     const pool = poolZExecutions(2);
 
     const [start1, end1] = testJob(1);
@@ -52,7 +50,6 @@ describe('poolZExecutions', () => {
     expect(finished.get(2)).toBeNull();
   });
   it('delays execution until pool limit allows', async () => {
-
     const pool = poolZExecutions(1);
 
     const [start1, end1] = testJob(1);
@@ -84,7 +81,6 @@ describe('poolZExecutions', () => {
     expect(finished.get(2)).toBeNull();
   });
   it('returns execution slot to pool after error', async () => {
-
     const pool = poolZExecutions(1);
 
     const [start1, end1] = testJob(1);
@@ -119,7 +115,6 @@ describe('poolZExecutions', () => {
     expect(finished.get(2)).toBeNull();
   });
   it('does not start already aborted execution', async () => {
-
     const pool = poolZExecutions();
 
     const [start1] = testJob(1);
@@ -144,7 +139,6 @@ describe('poolZExecutions', () => {
     expect(finished.get(2)).toBeNull();
   });
   it('reports failed to start execution', async () => {
-
     const pool = poolZExecutions();
     const error = new Error('test');
     const [start1] = testJob(1, () => Promise.reject(error));
@@ -167,7 +161,6 @@ describe('poolZExecutions', () => {
     expect(finished.get(2)).toBeNull();
   });
   it('returns execution aborted before started to the pool', async () => {
-
     const pool = poolZExecutions(1);
 
     const [start1] = testJob(1);
@@ -192,7 +185,6 @@ describe('poolZExecutions', () => {
     expect(finished.get(2)).toBeNull();
   });
   it('aborts started execution', async () => {
-
     const pool = poolZExecutions(1);
 
     const [start1] = testJob(1);
@@ -218,10 +210,9 @@ describe('poolZExecutions', () => {
   });
 
   function testJob(
-      id: number,
-      whenStarted: () => Promise<void> = () => Promise.resolve(),
+    id: number,
+    whenStarted: () => Promise<void> = () => Promise.resolve(),
   ): [start: ZExecutionStarter, end: (error?: unknown) => void] {
-
     let end!: (error?: unknown) => void;
     const whenEnd = new Promise<void>((resolve, reject) => {
       end = error => {
@@ -239,14 +230,14 @@ describe('poolZExecutions', () => {
         whenStarted,
         whenDone() {
           return whenEnd.then(
-              () => {
-                finished.set(id, null);
-              },
-              error => {
-                finished.set(id, error);
+            () => {
+              finished.set(id, null);
+            },
+            error => {
+              finished.set(id, error);
 
-                return Promise.reject(error);
-              },
+              return Promise.reject(error);
+            },
           );
         },
         abort() {
@@ -258,5 +249,4 @@ describe('poolZExecutions', () => {
 
     return [start, end];
   }
-
 });

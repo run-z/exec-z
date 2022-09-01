@@ -9,14 +9,16 @@ import { FailedZExecutionError } from './failed-execution-error';
  * Spawned process configuration.
  */
 export interface SpawnZConfig {
-
   /**
    * A signal to send to spawned process on abort execution, or a function to call to kill it.
    *
    * @default `SIGTERM`
    */
-  readonly kill?: NodeJS.Signals | number | ((this: this, process: ChildProcess) => void) | undefined;
-
+  readonly kill?:
+    | NodeJS.Signals
+    | number
+    | ((this: this, process: ChildProcess) => void)
+    | undefined;
 }
 
 /**
@@ -27,44 +29,39 @@ export interface SpawnZConfig {
  *
  * @returns New process execution instance killing the process on abort.
  */
-export function spawnZ(
-    spawn: (this: void) => ChildProcess,
-    config: SpawnZConfig = {},
-): ZExecution {
-
+export function spawnZ(spawn: (this: void) => ChildProcess, config: SpawnZConfig = {}): ZExecution {
   const { kill } = config;
-  const killProcess = typeof kill === 'function'
-      ? kill.bind(config)
-      : (process: ChildProcess) => process.kill(kill);
+  const killProcess
+    = typeof kill === 'function' ? kill.bind(config) : (process: ChildProcess) => process.kill(kill);
 
   return execZ<void>(() => {
-
     let abort: () => void;
     let whenDone = (): Promise<void> => new Promise<void>((resolve, reject) => {
+        const childProcess = spawn();
 
-      const childProcess = spawn();
+        abort = (): void => {
+          killProcess(childProcess);
+        };
 
-      abort = (): void => {
-        killProcess(childProcess);
-      };
-
-      const reportError = (error: Error): void => {
-        abort = noop;
-        reject(error);
-      };
-
-      childProcess.on('error', reportError);
-      childProcess.on('exit', (code, signal) => {
-        if (signal) {
-          reportError(new AbortedZExecutionError(signal));
-        } else if (code) {
-          reportError(code > 127 ? new AbortedZExecutionError(code) : new FailedZExecutionError(code));
-        } else {
+        const reportError = (error: Error): void => {
           abort = noop;
-          resolve();
-        }
+          reject(error);
+        };
+
+        childProcess.on('error', reportError);
+        childProcess.on('exit', (code, signal) => {
+          if (signal) {
+            reportError(new AbortedZExecutionError(signal));
+          } else if (code) {
+            reportError(
+              code > 127 ? new AbortedZExecutionError(code) : new FailedZExecutionError(code),
+            );
+          } else {
+            abort = noop;
+            resolve();
+          }
+        });
       });
-    });
 
     abort = (): void => {
       whenDone = lazyValue(() => Promise.reject(new AbortedZExecutionError()));

@@ -6,7 +6,6 @@ import { immediateResolution } from './spec';
 describe('failZ', () => {
   describe('whenStarted', () => {
     it('resolves immediately', async () => {
-
       const reason = new Error('test');
       const exec = failZ(reason);
 
@@ -16,7 +15,6 @@ describe('failZ', () => {
   });
   describe('whenDone', () => {
     it('rejects immediately', async () => {
-
       const reason = new Error('test');
 
       expect(await immediateResolution(failZ(reason).whenDone())).toEqual([undefined, reason]);
@@ -24,7 +22,6 @@ describe('failZ', () => {
   });
   describe('abort', () => {
     it('is noop', async () => {
-
       const exec = failZ('test');
 
       expect(exec.abort).toBe(noop);

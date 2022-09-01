@@ -6,7 +6,6 @@ import { execZAll } from './exec-all';
 import type { ZExecution } from './execution';
 
 describe('execZAll', () => {
-
   let done1: (value: string) => void;
   let reject1: (error: unknown) => void;
   let whenDone1: Promise<string>;
@@ -47,8 +46,8 @@ describe('execZAll', () => {
     isDone1 = false;
     isDone2 = false;
 
-    exec1.whenDone().then(() => isDone1 = true, noop);
-    exec2.whenDone().then(() => isDone2 = true, noop);
+    exec1.whenDone().then(() => (isDone1 = true), noop);
+    exec2.whenDone().then(() => (isDone2 = true), noop);
   });
 
   let all: ZExecution<[string, string]>;
@@ -69,7 +68,6 @@ describe('execZAll', () => {
     expect(isDone2).toBe(true);
   });
   it('succeeds when all executions do', async () => {
-
     const promise = all.whenDone();
 
     done1('1');
@@ -79,7 +77,6 @@ describe('execZAll', () => {
     expect(isDone2).toBe(true);
   });
   it('combines execution result', async () => {
-
     const promise = execZAll([exec1, exec2], ([r1, r2]) => r1 + r2).whenDone();
 
     done1('1');
@@ -89,7 +86,6 @@ describe('execZAll', () => {
     expect(isDone2).toBe(true);
   });
   it('fails when one of the executions fail', async () => {
-
     const promise = all.whenDone();
     const error = new Error('test');
 
@@ -99,7 +95,6 @@ describe('execZAll', () => {
     expect(isDone2).toBe(false);
   });
   it('aborts other executions when one of them fail', async () => {
-
     const promise = all.whenDone();
     const error = new Error('test');
 
@@ -111,7 +106,6 @@ describe('execZAll', () => {
 
   describe('abort', () => {
     it('aborts all executions', async () => {
-
       const promise = all.whenDone();
 
       all.abort();

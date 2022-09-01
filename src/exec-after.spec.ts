@@ -7,7 +7,6 @@ import { execZAfter } from './exec-after';
 import type { ZExecution } from './execution';
 
 describe('execZAfter', () => {
-
   let first: ZExecution<string>;
   let done1: (value: string) => void;
   let reject1: (error: unknown) => void;
@@ -17,9 +16,9 @@ describe('execZAfter', () => {
     abort1 = jest.fn();
     first = execZ(() => ({
       whenDone: () => new Promise((resolve, reject) => {
-        done1 = resolve;
-        reject1 = reject;
-      }),
+          done1 = resolve;
+          reject1 = reject;
+        }),
       abort: abort1,
     }));
   });
@@ -39,20 +38,20 @@ describe('execZAfter', () => {
     done2 = undefined!;
     reject2 = undefined!;
     abort2 = jest.fn();
-    exec = execZAfter(
-        first,
-        firstResult => ({
-          whenDone() {
-            return new Promise<number>((resolve, reject) => {
-              done2 = () => resolve(firstResult.length);
-              reject2 = reject;
-            });
-          },
-          abort: abort2,
-        }),
-    );
+    exec = execZAfter(first, firstResult => ({
+      whenDone() {
+        return new Promise<number>((resolve, reject) => {
+          done2 = () => resolve(firstResult.length);
+          reject2 = reject;
+        });
+      },
+      abort: abort2,
+    }));
 
-    exec.whenDone().then(() => success = true, e => error = e);
+    exec.whenDone().then(
+      () => (success = true),
+      e => (error = e),
+    );
   });
 
   describe('whenDone', () => {
@@ -66,7 +65,6 @@ describe('execZAfter', () => {
       expect(success).toBe(true);
     });
     it('fails when first execution failed', async () => {
-
       const reason = new Error('test');
 
       reject1(reason);
@@ -75,7 +73,6 @@ describe('execZAfter', () => {
       expect(error).toBe(reason);
     });
     it('fails when second execution failed', async () => {
-
       const reason = new Error('test');
 
       done1('test');

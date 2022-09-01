@@ -7,7 +7,6 @@ import { FailedZExecutionError } from './failed-execution-error';
 import { spawnZ } from './spawn';
 
 describe('spawnZ', () => {
-
   let childProcess: ChildProcess;
   let events: EventEmitter;
 
@@ -22,7 +21,6 @@ describe('spawnZ', () => {
   });
 
   it('succeeds when process exits with zero code', async () => {
-
     const exec = spawnZ(() => childProcess);
 
     await exec.whenStarted();
@@ -31,7 +29,6 @@ describe('spawnZ', () => {
     expect(await exec.whenDone()).toBeUndefined();
   });
   it('fails when process exits with non-zero code', async () => {
-
     const exec = spawnZ(() => childProcess);
 
     await exec.whenStarted();
@@ -40,7 +37,6 @@ describe('spawnZ', () => {
     expect(await exec.whenDone().catch(asis)).toEqual(new FailedZExecutionError(13));
   });
   it('fails when process terminates by signal', async () => {
-
     const exec = spawnZ(() => childProcess);
 
     await exec.whenStarted();
@@ -49,7 +45,6 @@ describe('spawnZ', () => {
     expect(await exec.whenDone().catch(asis)).toEqual(new AbortedZExecutionError('SIGKILL'));
   });
   it('fails when process terminates by large exit code', async () => {
-
     const exec = spawnZ(() => childProcess);
 
     await exec.whenStarted();
@@ -58,7 +53,6 @@ describe('spawnZ', () => {
     expect(await exec.whenDone().catch(asis)).toEqual(new AbortedZExecutionError(137));
   });
   it('kills the process on abort', async () => {
-
     const exec = spawnZ(() => childProcess);
 
     await exec.whenStarted();
@@ -67,7 +61,6 @@ describe('spawnZ', () => {
     expect(await exec.whenDone().catch(asis)).toEqual(new AbortedZExecutionError('SIGTERM'));
   });
   it('kills the process with custom signal on abort', async () => {
-
     const exec = spawnZ(() => childProcess, { kill: 'SIGKILL' });
 
     await exec.whenStarted();
@@ -76,8 +69,9 @@ describe('spawnZ', () => {
     expect(await exec.whenDone().catch(asis)).toEqual(new AbortedZExecutionError('SIGKILL'));
   });
   it('kills the process by custom method on abort', async () => {
-
-    const kill = jest.fn((_proc: ChildProcess) => { events.emit('exit', null, 'SIGUSR1'); });
+    const kill = jest.fn((_proc: ChildProcess) => {
+      events.emit('exit', null, 'SIGUSR1');
+    });
     const exec = spawnZ(() => childProcess, { kill });
 
     await exec.whenStarted();
@@ -87,7 +81,6 @@ describe('spawnZ', () => {
     expect(kill).toHaveBeenCalledWith(childProcess);
   });
   it('does not start the process on immediate abort', async () => {
-
     const spawn = jest.fn<() => ChildProcess>();
     const exec = spawnZ(spawn);
 

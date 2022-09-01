@@ -4,7 +4,6 @@
  * @typeparam TResult  Execution result type.
  */
 export interface ZExecution<TResult = void> {
-
   /**
    * Awaits for execution to start.
    *
@@ -23,5 +22,4 @@ export interface ZExecution<TResult = void> {
    * Aborts the execution.
    */
   abort(): void;
-
 }

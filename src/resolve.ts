@@ -10,7 +10,6 @@ import type { ZExecution } from './execution';
  * @returns Successful execution instance.
  */
 export function resolveZ<TResult>(result: TResult | PromiseLike<TResult>): ZExecution<TResult> {
-
   const resolution = Promise.resolve(result);
 
   return {

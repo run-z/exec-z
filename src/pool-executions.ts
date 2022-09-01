@@ -16,7 +16,7 @@ import { failZ } from './fail';
  * @returns A function accepting execution starter and returning started or pending execution.
  */
 export function poolZExecutions<TResult>(
-    maxRunning = os.cpus().length,
+  maxRunning = os.cpus().length,
 ): (this: void, starter: ZExecutionStarter<TResult>) => ZExecution<TResult> {
   if (maxRunning <= 0) {
     return execZ;
@@ -37,7 +37,6 @@ export function poolZExecutions<TResult>(
     });
   };
   const execEnd = (): void => {
-
     const next = queue.shift();
 
     if (next) {
@@ -52,42 +51,44 @@ export function poolZExecutions<TResult>(
   };
 
   return starter => execZ(() => {
+      let start: () => void = noop;
+      let dontStart: (error: unknown) => void = noop;
+      const whenStarted = (): Promise<void> => new Promise<void>((resolve, reject) => {
+          start = resolve;
+          dontStart = reject;
+        });
 
-    let start: () => void = noop;
-    let dontStart: (error: unknown) => void = noop;
-    const whenStarted = (): Promise<void> => new Promise<void>(((resolve, reject) => {
-      start = resolve;
-      dontStart = reject;
-    }));
+      let abort = (): void => {
+        const aborted = new AbortedZExecutionError();
 
-    let abort = (): void => {
+        starter = () => failZ<TResult>(aborted);
+        dontStart(aborted);
+      };
 
-      const aborted = new AbortedZExecutionError();
+      const ready = whenReady();
 
-      starter = () => failZ<TResult>(aborted);
-      dontStart(aborted);
-    };
+      return {
+        whenStarted() {
+          return whenStarted();
+        },
+        whenDone() {
+          return ready
+            .then(() => {
+              const execution = execZ(starter);
 
-    const ready = whenReady();
+              abort = () => execution.abort();
+              execution.whenStarted().then(
+                () => start(),
+                error => dontStart(error),
+              );
 
-    return {
-      whenStarted() {
-        return whenStarted();
-      },
-      whenDone() {
-        return ready.then(() => {
-
-          const execution = execZ(starter);
-
-          abort = () => execution.abort();
-          execution.whenStarted().then(() => start(), error => dontStart(error));
-
-          return execution.whenDone();
-        }).finally(execEnd);
-      },
-      abort() {
-        abort();
-      },
-    };
-  });
+              return execution.whenDone();
+            })
+            .finally(execEnd);
+        },
+        abort() {
+          abort();
+        },
+      };
+    });
 }

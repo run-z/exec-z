@@ -8,25 +8,22 @@ import type { ZExecution } from './execution';
 describe('execZ', () => {
   describe('whenStarted', () => {
     it('is called on start', async () => {
-
       let done!: () => void;
       const whenDone = new Promise<void>(resolve => {
         done = resolve;
       });
 
       const started = new Promise<[ZExecution]>(resolve => {
-
         const exec = execZ<void>(async () => {
           await Promise.resolve();
           resolve([exec]);
 
-          return ({
+          return {
             whenDone() {
               return whenDone;
             },
-          });
+          };
         });
-
       });
 
       const [exec] = await started;
@@ -37,25 +34,22 @@ describe('execZ', () => {
       await exec.whenDone();
     });
     it('is called after start', async () => {
-
       let done!: () => void;
       const whenDone = new Promise<void>(resolve => {
         done = resolve;
       });
 
       const started = new Promise<[ZExecution]>(resolve => {
-
         const exec = execZ<void>(async () => {
           await Promise.resolve();
           resolve([exec]);
 
-          return ({
+          return {
             whenDone() {
               return whenDone;
             },
-          });
+          };
         });
-
       });
 
       const [exec] = await started;
@@ -65,7 +59,6 @@ describe('execZ', () => {
       expect(await exec.whenStarted()).toBeUndefined();
     });
     it('is called on startup failure', async () => {
-
       const error = new Error('test');
       const exec = execZ(async () => {
         await Promise.resolve();
@@ -76,7 +69,6 @@ describe('execZ', () => {
       expect(await exec.whenDone().catch(asis)).toBe(error);
     });
     it('is called after startup failed', async () => {
-
       const error = new Error('test');
       const exec = execZ(async () => {
         await Promise.resolve();
@@ -87,7 +79,6 @@ describe('execZ', () => {
       expect(await exec.whenStarted().catch(asis)).toBe(error);
     });
     it('is called on abort', async () => {
-
       const exec = execZ(async () => {
         await Promise.resolve();
 
@@ -104,7 +95,6 @@ describe('execZ', () => {
       expect(await whenStarted.catch(asis)).toEqual(new AbortedZExecutionError());
     });
     it('is called after abort', async () => {
-
       const exec = execZ(async () => {
         await Promise.resolve();
 
@@ -121,7 +111,6 @@ describe('execZ', () => {
   });
 
   describe('abort', () => {
-
     let abort: Mock<() => void>;
     let exec: ZExecution;
 
@@ -150,12 +139,11 @@ describe('execZ', () => {
       expect(abort).toHaveBeenCalledTimes(1);
     });
     it('is called at most once when started', async () => {
-
       let done!: () => void;
 
       exec = execZ(() => ({
         whenDone() {
-          return new Promise(resolve => done = resolve);
+          return new Promise(resolve => (done = resolve));
         },
         abort,
       }));
@@ -172,12 +160,11 @@ describe('execZ', () => {
       expect(abort).toHaveBeenCalledTimes(1);
     });
     it('is not aborted when started without abort method', async () => {
-
       let done!: () => void;
 
       exec = execZ(() => ({
         whenDone() {
-          return new Promise(resolve => done = resolve);
+          return new Promise(resolve => (done = resolve));
         },
       }));
 

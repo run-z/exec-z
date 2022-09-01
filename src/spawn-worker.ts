@@ -8,7 +8,6 @@ import type { ZExecution } from './execution';
  * Spawned worker thread configuration.
  */
 export interface SpawnZWorkerConfig {
-
   /**
    * Stops worker thread.
    *
@@ -17,7 +16,6 @@ export interface SpawnZWorkerConfig {
    * @default Invokes `Worker.terminate()`
    */
   stop?(worker: Worker): void;
-
 }
 
 /**
@@ -29,15 +27,13 @@ export interface SpawnZWorkerConfig {
  * @returns New worker thread execution instance stopping the thread on abort.
  */
 export function spawnZWorker(
-    spawn: (this: void) => Worker,
-    config: SpawnZWorkerConfig = {},
+  spawn: (this: void) => Worker,
+  config: SpawnZWorkerConfig = {},
 ): ZExecution {
-
   const { stop } = config;
   const stopWorker = stop ? stop.bind(config) : (worker: Worker) => worker.terminate();
 
   return execZ(() => {
-
     let abort: () => void;
     let start: () => void;
     let dontStart: (error: unknown) => void;
@@ -48,30 +44,29 @@ export function spawnZWorker(
     });
 
     let whenDone = (): Promise<void> => new Promise<void>((resolve, reject) => {
+        const worker = spawn();
 
-      const worker = spawn();
+        abort = (): void => {
+          stopWorker(worker);
+        };
 
-      abort = (): void => {
-        stopWorker(worker);
-      };
-
-      const reportError = (error: Error): void => {
-        abort = noop;
-        dontStart(error);
-        reject(error);
-      };
-
-      worker.on('online', start);
-      worker.on('error', reportError);
-      worker.on('exit', code => {
-        if (code) {
-          reportError(new AbortedZExecutionError(code));
-        } else {
+        const reportError = (error: Error): void => {
           abort = noop;
-          resolve();
-        }
+          dontStart(error);
+          reject(error);
+        };
+
+        worker.on('online', start);
+        worker.on('error', reportError);
+        worker.on('exit', code => {
+          if (code) {
+            reportError(new AbortedZExecutionError(code));
+          } else {
+            abort = noop;
+            resolve();
+          }
+        });
       });
-    });
 
     abort = (): void => {
       whenDone = lazyValue(() => Promise.reject(new AbortedZExecutionError()));

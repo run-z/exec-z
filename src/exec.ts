@@ -11,12 +11,12 @@ import type { ZExecution } from './execution';
  * @typeparam TArgs  Starter arguments tuple type.
  */
 export type ZExecutionStarter<TResult = void, TArgs extends any[] = []> =
-/**
- * @param args - Starter arguments.
- *
- * @returns  Either execution initializer, or a promise-like instance resolving to one.
- */
-    (this: void, ...args: TArgs) => ZExecutionInit<TResult> | PromiseLike<ZExecutionInit<TResult>>;
+  /**
+   * @param args - Starter arguments.
+   *
+   * @returns  Either execution initializer, or a promise-like instance resolving to one.
+   */
+  (this: void, ...args: TArgs) => ZExecutionInit<TResult> | PromiseLike<ZExecutionInit<TResult>>;
 
 /**
  * Execution initializer.
@@ -26,7 +26,6 @@ export type ZExecutionStarter<TResult = void, TArgs extends any[] = []> =
  * @typeparam TResult  Execution result type.
  */
 export interface ZExecutionInit<TResult> {
-
   /**
    * Constructs a promise resolved when execution starts.
    *
@@ -50,7 +49,6 @@ export interface ZExecutionInit<TResult> {
    * When omitted the execution won't be aborted
    */
   abort?(): void;
-
 }
 
 /**
@@ -61,14 +59,10 @@ export interface ZExecutionInit<TResult> {
  *
  * @returns New execution instance to start by the given starter.
  */
-export function execZ<TResult>(
-    starter: ZExecutionStarter<TResult>,
-): ZExecution<TResult> {
-
+export function execZ<TResult>(starter: ZExecutionStarter<TResult>): ZExecution<TResult> {
   let start: () => void;
   let dontStart: (error: unknown) => void;
   let whenStarted = (): Promise<void> => {
-
     const result = new Promise<void>((resolve, reject) => {
       start = resolve;
       dontStart = reject;
@@ -102,27 +96,28 @@ export function execZ<TResult>(
       init.abort?.();
     };
     Promise.resolve()
-        .then(() => init.whenStarted?.())
-        .then(() => start(), error => dontStart(error));
+      .then(() => init.whenStarted?.())
+      .then(
+        () => start(),
+        error => dontStart(error),
+      );
   };
 
   const done = (): void => {
     abort = noop;
   };
 
-  const whenDone: Promise<TResult> = asyncByRecipe(starter).then(
-      init => {
-        initialize(init);
+  const whenDone: Promise<TResult> = asyncByRecipe(starter)
+    .then(init => {
+      initialize(init);
 
-        return Promise.resolve(init.whenDone()).finally(done);
-      },
-  ).catch(
-      error => {
-        dontStart(error);
+      return Promise.resolve(init.whenDone()).finally(done);
+    })
+    .catch(error => {
+      dontStart(error);
 
-        return Promise.reject(error);
-      },
-  );
+      return Promise.reject(error);
+    });
 
   return {
     whenStarted() {
