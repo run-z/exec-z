@@ -31,8 +31,8 @@ export interface SpawnZConfig {
  */
 export function spawnZ(spawn: (this: void) => ChildProcess, config: SpawnZConfig = {}): ZExecution {
   const { kill } = config;
-  const killProcess
-    = typeof kill === 'function' ? kill.bind(config) : (process: ChildProcess) => process.kill(kill);
+  const killProcess =
+    typeof kill === 'function' ? kill.bind(config) : (process: ChildProcess) => process.kill(kill);
 
   return execZ<void>(() => {
     let abort: () => void;
