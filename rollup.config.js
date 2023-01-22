@@ -1,7 +1,7 @@
-import { externalModules } from '@run-z/rollup-helpers';
+import ts from '@rollup/plugin-typescript';
 import { defineConfig } from 'rollup';
 import flatDts from 'rollup-plugin-flat-dts';
-import ts from 'rollup-plugin-typescript2';
+import unbundle from 'rollup-plugin-unbundle';
 import typescript from 'typescript';
 
 export default defineConfig({
@@ -9,13 +9,13 @@ export default defineConfig({
     'exec-z': './src/index.ts',
   },
   plugins: [
+    unbundle(),
     ts({
       typescript,
       tsconfig: 'tsconfig.main.json',
-      cacheRoot: 'target/.rts2_cache',
+      cacheDir: 'target/.rts_cache',
     }),
   ],
-  external: externalModules(),
   output: {
     dir: '.',
     format: 'esm',
@@ -25,6 +25,7 @@ export default defineConfig({
       flatDts({
         tsconfig: 'tsconfig.main.json',
         lib: true,
+        file: 'dist/exec-z.d.ts',
         compilerOptions: {
           declarationMap: true,
         },

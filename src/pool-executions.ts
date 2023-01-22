@@ -1,5 +1,5 @@
 import { noop } from '@proc7ts/primitives';
-import * as os from 'node:os';
+import os from 'node:os';
 import { AbortedZExecutionError } from './aborted-execution-error';
 import type { ZExecutionStarter } from './exec';
 import { execZ } from './exec';
@@ -9,7 +9,7 @@ import { failZ } from './fail';
 /**
  * Constructs execution pool.
  *
- * @typeparam TResult  Execution result type.
+ * @typeParam TResult -  Execution result type.
  * @param maxRunning - The maximum number of simultaneously running executions. Zero or negative value means no limit.
  * Equals to the number of CPUs by default.
  *
