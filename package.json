@@ -23,6 +23,7 @@
     "types": "./dist/exec-z.d.ts",
     "default": "./dist/exec-z.js"
   },
+  "sideEffects": false,
   "dependencies": {
     "@proc7ts/primitives": "^3.0.2"
   },
