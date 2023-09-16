@@ -1,6 +1,6 @@
 import { noop } from '@proc7ts/primitives';
-import { zExecutionDone } from './exec-done.impl';
-import type { ZExecution } from './execution';
+import { zExecutionDone } from './exec-done.impl.js';
+import type { ZExecution } from './execution.js';
 
 /**
  * Performs successful execution.

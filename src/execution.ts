@@ -1,7 +1,7 @@
 /**
  * Arbitrary execution that can be aborted.
  *
- * @typeparam TResult  Execution result type.
+ * @typeParam TResult  Execution result type.
  */
 export interface ZExecution<TResult = void> {
   /**

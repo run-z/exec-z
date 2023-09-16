@@ -1,9 +1,9 @@
 import { beforeEach, describe, expect, it } from '@jest/globals';
 import { asis } from '@proc7ts/primitives';
 import { Worker } from 'node:worker_threads';
-import { AbortedZExecutionError } from './aborted-execution-error';
-import type { ZExecution } from './execution';
-import { spawnZWorker, SpawnZWorkerConfig } from './spawn-worker';
+import { AbortedZExecutionError } from './aborted-execution-error.js';
+import type { ZExecution } from './execution.js';
+import { spawnZWorker, SpawnZWorkerConfig } from './spawn-worker.js';
 
 describe('spawnZWorker', () => {
   let out: string;

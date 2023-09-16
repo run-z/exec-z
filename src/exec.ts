@@ -1,29 +1,29 @@
 import { asyncByRecipe, lazyValue, noop, valueProvider } from '@proc7ts/primitives';
-import { AbortedZExecutionError } from './aborted-execution-error';
-import type { ZExecution } from './execution';
+import { AbortedZExecutionError } from './aborted-execution-error.js';
+import type { ZExecution } from './execution.js';
 
 /**
  * Execution starter signature.
  *
  * Constructs new execution initializer.
  *
- * @typeparam TResult  Execution result type.
- * @typeparam TArgs  Starter arguments tuple type.
+ * @typeParam TResult  Execution result type.
+ * @typeParam TArgs  Starter arguments tuple type.
+ * @param args - Starter arguments.
+ *
+ * @returns  Either execution initializer, or a promise-like instance resolving to one.
  */
-export type ZExecutionStarter<TResult = void, TArgs extends any[] = []> =
-  /**
-   * @param args - Starter arguments.
-   *
-   * @returns  Either execution initializer, or a promise-like instance resolving to one.
-   */
-  (this: void, ...args: TArgs) => ZExecutionInit<TResult> | PromiseLike<ZExecutionInit<TResult>>;
+export type ZExecutionStarter<TResult = void, TArgs extends any[] = []> = (
+  this: void,
+  ...args: TArgs
+) => ZExecutionInit<TResult> | PromiseLike<ZExecutionInit<TResult>>;
 
 /**
  * Execution initializer.
  *
  * Returned from {@link ZExecutionStarter execution starter} to construct new executions.
  *
- * @typeparam TResult  Execution result type.
+ * @typeParam TResult  Execution result type.
  */
 export interface ZExecutionInit<TResult> {
   /**
@@ -54,18 +54,18 @@ export interface ZExecutionInit<TResult> {
 /**
  * Starts execution by the given starter.
  *
- * @typeparam TResult  Execution result type.
+ * @typeParam TResult  Execution result type.
  * @param starter - Execution starter function.
  *
  * @returns New execution instance to start by the given starter.
  */
 export function execZ<TResult>(starter: ZExecutionStarter<TResult>): ZExecution<TResult> {
   let start: () => void;
-  let dontStart: (error: unknown) => void;
+  let doNotStart: (error: unknown) => void;
   let whenStarted = (): Promise<void> => {
     const result = new Promise<void>((resolve, reject) => {
       start = resolve;
-      dontStart = reject;
+      doNotStart = reject;
     });
 
     whenStarted = valueProvider(result);
@@ -76,7 +76,7 @@ export function execZ<TResult>(starter: ZExecutionStarter<TResult>): ZExecution<
   start = () => {
     whenStarted = valueProvider(Promise.resolve());
   };
-  dontStart = (error: unknown): void => {
+  doNotStart = (error: unknown): void => {
     whenStarted = lazyValue(() => Promise.reject(error));
   };
 
@@ -86,7 +86,7 @@ export function execZ<TResult>(starter: ZExecutionStarter<TResult>): ZExecution<
     initialize = init => {
       init.abort?.();
     };
-    dontStart(new AbortedZExecutionError());
+    doNotStart(new AbortedZExecutionError());
   };
 
   initialize = init => {
@@ -99,7 +99,7 @@ export function execZ<TResult>(starter: ZExecutionStarter<TResult>): ZExecution<
       .then(() => init.whenStarted?.())
       .then(
         () => start(),
-        error => dontStart(error),
+        error => doNotStart(error),
       );
   };
 
@@ -114,7 +114,7 @@ export function execZ<TResult>(starter: ZExecutionStarter<TResult>): ZExecution<
       return Promise.resolve(init.whenDone()).finally(done);
     })
     .catch(error => {
-      dontStart(error);
+      doNotStart(error);
 
       return Promise.reject(error);
     });

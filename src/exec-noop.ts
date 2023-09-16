@@ -1,6 +1,6 @@
 import { noop } from '@proc7ts/primitives';
-import { zExecutionDone } from './exec-done.impl';
-import type { ZExecution } from './execution';
+import { zExecutionDone } from './exec-done.impl.js';
+import type { ZExecution } from './execution.js';
 
 /**
  * @internal
@@ -18,7 +18,7 @@ const noopZExecution: ZExecution = {
 /**
  * Performs no-op execution.
  *
- * @typeparam TResult  Execution result type.
+ * @typeParam TResult  Execution result type.
  *
  * @returns Already completed execution instance.
  */

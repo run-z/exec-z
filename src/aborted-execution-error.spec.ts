@@ -1,5 +1,5 @@
 import { describe, expect, it } from '@jest/globals';
-import { AbortedZExecutionError } from './aborted-execution-error';
+import { AbortedZExecutionError } from './aborted-execution-error.js';
 
 describe('AbortedZExecutionError', () => {
   describe('toString', () => {

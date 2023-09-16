@@ -1,7 +1,7 @@
 import { describe, expect, it } from '@jest/globals';
 import { noop } from '@proc7ts/primitives';
-import { execZNoOp } from './exec-noop';
-import { immediateResolution } from './spec';
+import { execZNoOp } from './exec-noop.js';
+import { immediateResolution } from './spec/immediate-resolution.js';
 
 describe('execZNoOp', () => {
   describe('whenStarted', () => {

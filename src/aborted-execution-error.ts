@@ -15,10 +15,7 @@ export class AbortedZExecutionError extends Error {
    */
   constructor(readonly abortReason?: unknown, message = 'Execution aborted') {
     super(abortReason !== undefined ? `${message}. ${abortReason}` : message);
-  }
-
-  get name(): string {
-    return 'Aborted';
+    this.name = 'Aborted';
   }
 
 }

@@ -1,9 +1,9 @@
 import { beforeEach, describe, expect, it, jest } from '@jest/globals';
 import { asis, noop } from '@proc7ts/primitives';
 import type { Mock } from 'jest-mock';
-import { execZ } from './exec';
-import { execZAll } from './exec-all';
-import type { ZExecution } from './execution';
+import { execZAll } from './exec-all.js';
+import { execZ } from './exec.js';
+import type { ZExecution } from './execution.js';
 
 describe('execZAll', () => {
   let done1: (value: string) => void;

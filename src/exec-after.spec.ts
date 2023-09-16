@@ -1,10 +1,10 @@
 import { beforeEach, describe, expect, it, jest } from '@jest/globals';
 import { asis } from '@proc7ts/primitives';
 import type { Mock } from 'jest-mock';
-import { AbortedZExecutionError } from './aborted-execution-error';
-import { execZ } from './exec';
-import { execZAfter } from './exec-after';
-import type { ZExecution } from './execution';
+import { AbortedZExecutionError } from './aborted-execution-error.js';
+import { execZAfter } from './exec-after.js';
+import { execZ } from './exec.js';
+import type { ZExecution } from './execution.js';
 
 describe('execZAfter', () => {
   let first: ZExecution<string>;

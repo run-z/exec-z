@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, it } from '@jest/globals';
 import { asis } from '@proc7ts/primitives';
-import { AbortedZExecutionError } from './aborted-execution-error';
-import { execZ, ZExecutionStarter } from './exec';
-import { poolZExecutions } from './pool-executions';
+import { AbortedZExecutionError } from './aborted-execution-error.js';
+import { execZ, ZExecutionStarter } from './exec.js';
+import { poolZExecutions } from './pool-executions.js';
 
 describe('poolZExecutions', () => {
   let started: Set<number>;

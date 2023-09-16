@@ -2,9 +2,9 @@ import { beforeEach, describe, expect, it, jest } from '@jest/globals';
 import { asis } from '@proc7ts/primitives';
 import type { ChildProcess } from 'node:child_process';
 import { EventEmitter } from 'node:events';
-import { AbortedZExecutionError } from './aborted-execution-error';
-import { FailedZExecutionError } from './failed-execution-error';
-import { spawnZ } from './spawn';
+import { AbortedZExecutionError } from './aborted-execution-error.js';
+import { FailedZExecutionError } from './failed-execution-error.js';
+import { spawnZ } from './spawn.js';
 
 describe('spawnZ', () => {
   let childProcess: ChildProcess;

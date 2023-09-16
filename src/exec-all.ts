@@ -1,14 +1,14 @@
 import { asis, noop } from '@proc7ts/primitives';
-import { execZ } from './exec';
-import type { ZExecution } from './execution';
+import { execZ } from './exec.js';
+import type { ZExecution } from './execution.js';
 
 /**
  * Performs execution that succeeds when all the given executions do, or fails when either of them fail.
  *
  * Aborts other executions once one of them fail.
  *
- * @typeparam T1  First execution result type.
- * @typeparam T2  Second execution result type.
+ * @typeParam T1  First execution result type.
+ * @typeParam T2  Second execution result type.
  * @param executions - An iterable of executions.
  *
  * @returns New execution instance.
@@ -22,9 +22,9 @@ export function execZAll<T1, T2>(
  *
  * Aborts other executions once one of them fail.
  *
- * @typeparam T1  First execution result type.
- * @typeparam T2  Second execution result type.
- * @typeparam T  Execution results combination type.
+ * @typeParam T1  First execution result type.
+ * @typeParam T2  Second execution result type.
+ * @typeParam T  Execution results combination type.
  * @param executions - An iterable of executions.
  * @param combine - Combiner function accepting execution results array and returning their combination.
  *
@@ -332,7 +332,7 @@ export function execZAll<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13,
  *
  * Aborts other executions once one of them fail.
  *
- * @typeparam TResult  Executions result type.
+ * @typeParam TResult  Executions result type.
  * @param executions - An iterable of executions.
  *
  * @returns New execution instance.
@@ -345,8 +345,8 @@ export function execZAll<TResult>(executions: Iterable<ZExecution<TResult>>): ZE
  *
  * Aborts other executions once one of them fail.
  *
- * @typeparam TResult  Executions result type.
- * @typeparam TCombination  Execution results combination type.
+ * @typeParam TResult  Executions result type.
+ * @typeParam TCombination  Execution results combination type.
  * @param executions - An iterable of executions.
  * @param combine - Combiner function accepting execution results array and returning their combination.
  *

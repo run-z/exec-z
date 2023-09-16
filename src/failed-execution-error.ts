@@ -11,10 +11,8 @@ export class FailedZExecutionError extends Error {
    */
   constructor(readonly failure?: unknown, message = 'Execution failed') {
     super(failure !== undefined ? `${message}. ${failure}` : message);
-  }
 
-  get name(): string {
-    return 'Failed';
+    this.name = 'Failed';
   }
 
 }

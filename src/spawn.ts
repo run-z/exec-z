@@ -1,9 +1,9 @@
 import { lazyValue, noop } from '@proc7ts/primitives';
 import type { ChildProcess } from 'node:child_process';
-import { AbortedZExecutionError } from './aborted-execution-error';
-import { execZ } from './exec';
-import type { ZExecution } from './execution';
-import { FailedZExecutionError } from './failed-execution-error';
+import { AbortedZExecutionError } from './aborted-execution-error.js';
+import { execZ } from './exec.js';
+import type { ZExecution } from './execution.js';
+import { FailedZExecutionError } from './failed-execution-error.js';
 
 /**
  * Spawned process configuration.

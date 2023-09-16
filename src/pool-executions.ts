@@ -1,10 +1,10 @@
 import { noop } from '@proc7ts/primitives';
 import os from 'node:os';
-import { AbortedZExecutionError } from './aborted-execution-error';
-import type { ZExecutionStarter } from './exec';
-import { execZ } from './exec';
-import type { ZExecution } from './execution';
-import { failZ } from './fail';
+import { AbortedZExecutionError } from './aborted-execution-error.js';
+import type { ZExecutionStarter } from './exec.js';
+import { execZ } from './exec.js';
+import type { ZExecution } from './execution.js';
+import { failZ } from './fail.js';
 
 /**
  * Constructs execution pool.

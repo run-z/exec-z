@@ -1,6 +1,6 @@
 {
   "name": "@run-z/exec-z",
-  "version": "1.4.2",
+  "version": "2.0.0-pre.0",
   "description": "Abortable executions",
   "keywords": [
     "abortable",
@@ -25,7 +25,7 @@
   },
   "sideEffects": false,
   "dependencies": {
-    "@proc7ts/primitives": "^3.0.2"
+    "@proc7ts/primitives": "^4.0.1"
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",

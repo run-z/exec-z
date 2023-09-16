@@ -1,8 +1,8 @@
 import { lazyValue, noop } from '@proc7ts/primitives';
 import type { Worker } from 'node:worker_threads';
-import { AbortedZExecutionError } from './aborted-execution-error';
-import { execZ } from './exec';
-import type { ZExecution } from './execution';
+import { AbortedZExecutionError } from './aborted-execution-error.js';
+import { execZ } from './exec.js';
+import type { ZExecution } from './execution.js';
 
 /**
  * Spawned worker thread configuration.

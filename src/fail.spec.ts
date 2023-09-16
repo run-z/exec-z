@@ -1,7 +1,7 @@
 import { describe, expect, it } from '@jest/globals';
 import { asis, noop } from '@proc7ts/primitives';
-import { failZ } from './fail';
-import { immediateResolution } from './spec';
+import { failZ } from './fail.js';
+import { immediateResolution } from './spec/immediate-resolution.js';
 
 describe('failZ', () => {
   describe('whenStarted', () => {
