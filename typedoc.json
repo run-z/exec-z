@@ -1,5 +1,6 @@
 {
   "entryPoints": ["src/mod.ts"],
   "name": "Abortable Executions",
+  "sort": ["static-first", "visibility", "enum-value-ascending", "alphabetical", "kind"],
   "out": "./target/typedoc"
 }
