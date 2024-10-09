@@ -36,7 +36,8 @@ export function spawnZ(spawn: (this: void) => ChildProcess, config: SpawnZConfig
 
   return execZ<void>(() => {
     let abort: () => void;
-    let whenDone = (): Promise<void> => new Promise<void>((resolve, reject) => {
+    let whenDone = (): Promise<void> =>
+      new Promise<void>((resolve, reject) => {
         const childProcess = spawn();
 
         abort = (): void => {

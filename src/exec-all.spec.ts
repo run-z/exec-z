@@ -1,6 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from '@jest/globals';
 import { asis, noop } from '@proc7ts/primitives';
-import type { Mock } from 'jest-mock';
 import { execZAll } from './exec-all.js';
 import { execZ } from './exec.js';
 import type { ZExecution } from './execution.js';
@@ -11,13 +10,13 @@ describe('execZAll', () => {
   let whenDone1: Promise<string>;
   let exec1: ZExecution<string>;
   let isDone1: boolean;
-  let abort1: Mock<() => void>;
+  let abort1: jest.Mock<() => void>;
 
   let done2: (value: string) => void;
   let whenDone2: Promise<string>;
   let exec2: ZExecution<string>;
   let isDone2: boolean;
-  let abort2: Mock<() => void>;
+  let abort2: jest.Mock<() => void>;
 
   beforeEach(() => {
     whenDone1 = new Promise((resolve, reject) => {

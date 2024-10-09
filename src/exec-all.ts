@@ -381,11 +381,13 @@ export function execZAll<TResult, TCombination>(
       },
       whenDone() {
         return Promise.all(
-          Array.from(toAbort, exec => exec.whenDone().catch(error => {
+          Array.from(toAbort, exec =>
+            exec.whenDone().catch(error => {
               fail(exec);
 
               return Promise.reject(error);
-            })),
+            }),
+          ),
         ).then(combine);
       },
       abort,

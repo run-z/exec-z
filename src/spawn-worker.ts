@@ -43,7 +43,8 @@ export function spawnZWorker(
       dontStart = reject;
     });
 
-    let whenDone = (): Promise<void> => new Promise<void>((resolve, reject) => {
+    let whenDone = (): Promise<void> =>
+      new Promise<void>((resolve, reject) => {
         const worker = spawn();
 
         abort = (): void => {
